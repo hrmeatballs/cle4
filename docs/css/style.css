@@ -1,4 +1,32 @@
 body {
-    background-color: #70CF51;
+    background-image: url('../img/stars.png');
     color:blue;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto;
+}
+
+.grid-item {
+    text-align: center;
+    position: relative
+}
+
+.grid-item img {
+    width: 80%;
+}
+
+.locked {
+    filter:grayscale(100);
+}
+
+.locked-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 40%!important;
 }
