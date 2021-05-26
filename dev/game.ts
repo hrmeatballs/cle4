@@ -1,4 +1,4 @@
-import { World } from "./GameObj/world.js"
+import { World } from "./classes/GameObj/world.js"
 
 class Game {
 
