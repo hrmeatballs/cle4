@@ -1,17 +1,19 @@
 body {
     background-image: url('../img/stars.png');
-    color:blue;
+    color:white;
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto;
-    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    height: 90vh;
 }
 
 .grid-item {
+    position: relative;
+    bottom: 7vw;
     text-align: center;
-    position: relative
 }
 
 .grid-item img {
@@ -23,10 +25,12 @@ body {
 }
 
 .locked-img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    top: 20vw;
     z-index: 1;
     width: 40%!important;
+}
+
+.invisible {
+    filter: opacity(0);
 }
