@@ -11,6 +11,8 @@ export class bubbleShooter {
         this.mouse.style.position = 'relative';
         this.mouse.innerHTML = '< here is your mouse';
         document.body.appendChild(this.mouse);
+        this.line = document.createElement('div');
+        this.body.appendChild(this.line);
     }
     mouseMoveHandler(e) {
         e.preventDefault();

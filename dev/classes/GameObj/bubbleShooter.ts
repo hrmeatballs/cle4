@@ -2,6 +2,7 @@ export class bubbleShooter {
 
     mouse : HTMLElement
     body : HTMLElement
+    line : HTMLElement
 
     constructor() {
         console.log('Created bubble shooter')
@@ -17,6 +18,9 @@ export class bubbleShooter {
         this.mouse.style.position = 'relative'
         this.mouse.innerHTML = '< here is your mouse'
         document.body.appendChild(this.mouse)
+
+        this.line = document.createElement('div')
+        this.body.appendChild(this.line)
 
     }
 

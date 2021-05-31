@@ -21,15 +21,13 @@ export class menuWorlds {
         document.body.style.backgroundImage = "url('img/stars.png')"
 
         this.createGrid();
-        for (let i = 0; i < 3; i++) {
-            this.createItem()
-        }
+
+        this.createItem()
+
         for (let i = 0; i < 3; i++) {
                 this.createWorld(this.worlds[i].name, this.worlds[i].locked)
         }
-        for (let i = 0; i < 3; i++) {
-            this.createItem()
-        }
+
     }
 
     private createGrid() {
@@ -39,9 +37,11 @@ export class menuWorlds {
     }
 
     private createItem() {
-        let item = document.createElement('div')
-        item.classList.add('grid-item','empty')
-        this.div.appendChild(item)
+        for (let i = 0; i < 3; i++) {
+            let item = document.createElement('div')
+            item.classList.add('grid-item','empty')
+            this.div.appendChild(item)
+        }
     }
     
     private createWorld(world_name : string, locked : boolean) {

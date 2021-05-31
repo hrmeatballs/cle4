@@ -1,5 +1,6 @@
 body {
     color:gray;
+    margin: 0;
 }
 
 .grid-container {
@@ -33,4 +34,15 @@ body {
 
 .invisible {
     filter: opacity(0);
+}
+
+.fade-to-worldmenu {
+    transition: all 3s;
+    background-image: url(../img/clouds.png);
+    background-size: cover;
+    height: 180vh;
+    width: 100vw;
+    margin-top: 80vh;
+    position: fixed;
+    z-index: 2;
 }
