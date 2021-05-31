@@ -18,6 +18,8 @@ export class menuWorlds {
     private div : HTMLElement
 
     constructor() {
+        document.body.style.backgroundImage = "url('img/stars.png')"
+
         this.createGrid();
         for (let i = 0; i < 3; i++) {
             this.createItem()
@@ -65,7 +67,7 @@ export class menuWorlds {
         item.appendChild(img)
         this.div.appendChild(item)
         
-        console.log('world created')
+        console.log(`Created ${world_name} world`)
     }
 
 }

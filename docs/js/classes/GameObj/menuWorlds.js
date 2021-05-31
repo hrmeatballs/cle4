@@ -14,6 +14,7 @@ export class menuWorlds {
                 locked: true
             }
         ];
+        document.body.style.backgroundImage = "url('img/stars.png')";
         this.createGrid();
         for (let i = 0; i < 3; i++) {
             this.createItem();
@@ -54,7 +55,7 @@ export class menuWorlds {
         item.appendChild(lock);
         item.appendChild(img);
         this.div.appendChild(item);
-        console.log('world created');
+        console.log(`Created ${world_name} world`);
     }
 }
 //# sourceMappingURL=menuWorlds.js.map

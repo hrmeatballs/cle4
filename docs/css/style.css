@@ -1,6 +1,5 @@
 body {
-    background-image: url('../img/stars.png');
-    color:white;
+    color:gray;
 }
 
 .grid-container {
@@ -18,6 +17,7 @@ body {
 
 .grid-item img {
     width: 80%;
+    transition:all 1s;
 }
 
 .locked {

@@ -1,17 +1,21 @@
 import { menuWorlds } from "./classes/GameObj/menuWorlds.js"
 import { menuWorldWater } from "./classes/GameObj/menuWorldWater.js"
+import { bubbleShooter } from "./classes/GameObj/bubbleShooter.js"
 
 class Game {
 
     private menuWorlds : menuWorlds
     private menuWorldWater : menuWorldWater
+    private bubbleShooter : bubbleShooter
 
     constructor() {
-        console.log('Game Created');
+        console.log('Created game');
 
-        this.menuWorlds = new menuWorlds()
+        this.bubbleShooter = new bubbleShooter()
 
-        document.body.addEventListener('click', this.clickHandler)
+        //this.menuWorlds = new menuWorlds()
+
+        //document.body.addEventListener('click', this.clickHandler)
     }
     
     private clickHandler(e: any) {
