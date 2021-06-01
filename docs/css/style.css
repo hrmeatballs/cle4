@@ -7,18 +7,15 @@ body {
     display: grid;
     grid-template-columns: auto auto auto;
     grid-template-rows: auto auto auto;
-    height: 90vh;
+    height: 100vh;
 }
 
 .grid-item {
-    position: relative;
-    bottom: 7vw;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position:center;
     text-align: center;
-}
-
-.grid-item img {
-    width: 80%;
-    transition:all 1s;
+    margin: 10px;
 }
 
 .locked {
@@ -26,9 +23,7 @@ body {
 }
 
 .locked-img {
-    position: relative;
-    top: 20vw;
-    z-index: 1;
+    margin-top: 20vh;
     width: 40%!important;
 }
 
@@ -37,7 +32,7 @@ body {
 }
 
 .fade-to-worldmenu {
-    transition: all 3s;
+    transition: margin-top 2s,background-image 2s;
     background-image: url(../img/clouds.png);
     background-size: cover;
     height: 180vh;
@@ -45,4 +40,11 @@ body {
     margin-top: 80vh;
     position: fixed;
     z-index: 2;
+}
+
+.island {
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position:center;
+    background-image: url(../img/island.png);
 }

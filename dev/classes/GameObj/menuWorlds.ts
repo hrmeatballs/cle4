@@ -15,7 +15,11 @@ export class menuWorlds {
         }
     ]
 
-    private div : HTMLElement
+    private grid : HTMLElement
+
+    public gridRemover() {
+        this.grid.remove()
+    }
 
     constructor() {
         document.body.style.backgroundImage = "url('img/stars.png')"
@@ -28,28 +32,31 @@ export class menuWorlds {
                 this.createWorld(this.worlds[i].name, this.worlds[i].locked)
         }
 
+        this.createItem()
+
     }
 
     private createGrid() {
-        this.div = document.createElement('div')
-        this.div.classList.add('grid-container')
-        document.body.appendChild(this.div)
+        this.grid = document.createElement('grid')
+        this.grid.classList.add('grid-container')
+        document.body.appendChild(this.grid)
     }
 
     private createItem() {
         for (let i = 0; i < 3; i++) {
             let item = document.createElement('div')
             item.classList.add('grid-item','empty')
-            this.div.appendChild(item)
+            this.grid.appendChild(item)
         }
     }
     
     private createWorld(world_name : string, locked : boolean) {
         let item = document.createElement('div')
-        let img = document.createElement('img')
+        item.style.backgroundImage = `url(img/world_${world_name}.png)`
         item.classList.add('grid-item')
-        img.src = `./img/world_${world_name}.png`
-        img.alt = `${world_name}`
+        //let img = document.createElement('img')
+        //img.src = `./img/world_${world_name}.png`
+        //img.alt = `${world_name}`
         
         let lock = document.createElement('img')
         
@@ -59,13 +66,17 @@ export class menuWorlds {
 
         if(!locked) {
             lock.classList.add('invisible')
+            lock.setAttribute('id', `${world_name}`)
+            item.setAttribute('id', `${world_name}`)
         } else {
-            img.classList.add('locked')
+            item.classList.add('locked')
+            lock.setAttribute('id', 'locked')
+            item.setAttribute('id', 'locked')
         }
 
         item.appendChild(lock)
-        item.appendChild(img)
-        this.div.appendChild(item)
+        //item.appendChild(img)
+        this.grid.appendChild(item)
         
         console.log(`Created ${world_name} world`)
     }
