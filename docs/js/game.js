@@ -1,8 +1,11 @@
 import { menuWorldWater } from "./classes/GameObj/menuWorldWater.js";
+import { bubbleShooter } from "./classes/GameObj/bubbleShooter.js";
 class Game {
     constructor() {
         console.log('Created game');
+        this.bubbleShooter = new bubbleShooter();
         document.body.addEventListener('click', (e) => this.clickHandler(e));
+        this.gameLoop();
     }
     clickHandler(e) {
         if (e.target.id == 'locked') {
@@ -13,6 +16,10 @@ class Game {
             document.body.innerHTML = "";
             this.menuWorldWater = new menuWorldWater();
         }
+    }
+    gameLoop() {
+        this.bubbleShooter.update();
+        requestAnimationFrame(() => this.gameLoop());
     }
 }
 new Game();

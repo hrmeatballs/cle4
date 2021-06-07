@@ -11,12 +11,14 @@ class Game {
     constructor() {
         console.log('Created game');
 
-        //this.bubbleShooter = new bubbleShooter()
+        this.bubbleShooter = new bubbleShooter()
 
         //this.menuWorlds = new menuWorlds()
         //this.menuWorldWater = new menuWorldWater()
 
         document.body.addEventListener('click', (e : any) => this.clickHandler(e))
+
+        this.gameLoop()
     }
     
     private clickHandler(e: any) {
@@ -29,6 +31,12 @@ class Game {
             this.menuWorldWater = new menuWorldWater()
         }
 
+    }
+
+    private gameLoop() {
+        this.bubbleShooter.update()
+
+        requestAnimationFrame(() => this.gameLoop())
     }
 
 
