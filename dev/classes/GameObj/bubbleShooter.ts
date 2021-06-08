@@ -4,7 +4,8 @@ export class bubbleShooter {
     private player : any
     private tile : HTMLElement
     private speed : number = 0
-    private x : number = 0
+    private x : number = 1
+    private y : number = 1
 
     constructor() {
         console.log('Created bubble shooter')
@@ -18,14 +19,17 @@ export class bubbleShooter {
         this.canvas.style.width = '99vw'
         document.body.appendChild(this.canvas)
 
-        //creating tile at the bottom of the screen
+        this.x = (this.canvas.clientWidth/2) - 50
+        this.y = this.canvas.clientHeight - 100
+
+        //creating tile at the bottom of the screen, aka player
         this.tile = document.createElement('div')
         this.tile.style.backgroundColor = 'red'
         this.tile.style.position = 'absolute'
         this.tile.style.height = '100px'
         this.tile.style.width = '100px'
-        this.tile.style.left = `${(this.canvas.clientWidth/2) - 50}px`
-        this.tile.style.top = `${this.canvas.clientHeight - 100}px`
+        this.tile.style.left = `${this.x}px`
+        this.tile.style.top = `${this.y}px`
         this.tile.innerText = '<<<<<<<<<'
         this.tile.style.color = 'white'
         document.body.appendChild(this.tile)
@@ -80,7 +84,11 @@ export class bubbleShooter {
             }
         }
 
+        //adding mouse angle to player angle
         this.player.angle = mouseangle
+
+        //rotating the tile facing to the mouse
+        this.tile.style.transform = `rotate(${this.degToRad(this.player.angle)}rad)`
     }
 
     // Get the mouse position
@@ -98,12 +106,14 @@ export class bubbleShooter {
     }
 
     public update() {
-        //moving the tile
-        this.x -= 1 * this.speed
 
-        //updating the tile
-        this.tile.style.transform = `rotate(${this.degToRad(this.player.angle)}rad) translate(${this.x}px,${0}px)`
-        //this.tile.style.transform = ``
+        //deze 2 regels zouden voor het veranderen van x en y moeten zorgen (formule)
+        this.x = this.speed * Math.cos(this.degToRad(this.player.angle))
+        this.y = this.speed * -1*Math.sin(this.degToRad(this.player.angle))
+
+        //deze 2 regels moeten de tile/bubble die geschoten moet worden updaten. Dat doet hij alleen niet want x en y zijn NaN door de formule
+        this.tile.style.left = `${this.x}px`
+        this.tile.style.top = `${this.y}px`
     }
  
 

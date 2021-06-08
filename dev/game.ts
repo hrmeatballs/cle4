@@ -16,7 +16,7 @@ class Game {
         //this.menuWorlds = new menuWorlds()
         //this.menuWorldWater = new menuWorldWater()
 
-        document.body.addEventListener('click', (e : any) => this.clickHandler(e))
+        //document.body.addEventListener('click', (e : any) => this.clickHandler(e))
 
         this.gameLoop()
     }
@@ -26,7 +26,7 @@ class Game {
         if (e.target.id == 'locked') {
             return
         } else if (e.target.id == 'water'){
-            document.body.removeEventListener('click', () => this.clickHandler(e))
+            //document.body.removeEventListener('click', () => this.clickHandler(e))
             document.body.innerHTML = ""
             this.menuWorldWater = new menuWorldWater()
         }

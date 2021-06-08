@@ -4,7 +4,6 @@ class Game {
     constructor() {
         console.log('Created game');
         this.bubbleShooter = new bubbleShooter();
-        document.body.addEventListener('click', (e) => this.clickHandler(e));
         this.gameLoop();
     }
     clickHandler(e) {
@@ -12,7 +11,6 @@ class Game {
             return;
         }
         else if (e.target.id == 'water') {
-            document.body.removeEventListener('click', () => this.clickHandler(e));
             document.body.innerHTML = "";
             this.menuWorldWater = new menuWorldWater();
         }
