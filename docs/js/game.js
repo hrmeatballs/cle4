@@ -4,6 +4,7 @@ class Game {
     constructor() {
         console.log('Created game');
         this.bubbleShooter = new bubbleShooter();
+        document.body.addEventListener('click', (e) => this.clickHandler(e));
         this.gameLoop();
     }
     clickHandler(e) {

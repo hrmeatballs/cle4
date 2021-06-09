@@ -16,7 +16,7 @@ class Game {
         //this.menuWorlds = new menuWorlds()
         //this.menuWorldWater = new menuWorldWater()
 
-        //document.body.addEventListener('click', (e : any) => this.clickHandler(e))
+        document.body.addEventListener('click', (e : any) => this.clickHandler(e))
 
         this.gameLoop()
     }
