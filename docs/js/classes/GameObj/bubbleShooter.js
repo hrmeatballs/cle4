@@ -1,8 +1,7 @@
 export class bubbleShooter {
     constructor() {
         this.speed = 0;
-        this.x = 1;
-        this.y = 1;
+        this.gameState = 'init';
         console.log('Created bubble shooter');
         document.addEventListener('mousemove', (e) => this.onMouseMove(e));
         document.addEventListener('click', (e) => this.onMouseClick(e));
@@ -10,25 +9,27 @@ export class bubbleShooter {
         this.canvas.style.height = '99vh';
         this.canvas.style.width = '99vw';
         document.body.appendChild(this.canvas);
-        this.x = (this.canvas.clientWidth / 2) - 50;
-        this.y = this.canvas.clientHeight - 100;
-        console.log(this.x);
-        this.tile = document.createElement('div');
-        this.tile.style.backgroundColor = 'red';
-        this.tile.style.position = 'absolute';
-        this.tile.style.height = '100px';
-        this.tile.style.width = '100px';
-        this.tile.style.left = `${this.x}px`;
-        this.tile.style.top = `${this.y}px`;
-        this.tile.innerText = '<<<<<<<<<';
-        this.tile.style.color = 'white';
-        document.body.appendChild(this.tile);
+        this.createTile();
+    }
+    createTile() {
+        this.gameState = 'playing';
         this.player = this.getPlayerPos();
+        this.playerDiv = document.createElement('div');
+        this.playerDiv.style.backgroundColor = 'red';
+        this.playerDiv.style.position = 'fixed';
+        this.playerDiv.style.height = '100px';
+        this.playerDiv.style.width = '100px';
+        this.playerDiv.style.left = `${this.player.x}px`;
+        this.playerDiv.style.top = `${this.player.y}px`;
+        this.playerDiv.innerText = '<<<<<<<<<';
+        this.playerDiv.style.color = 'white';
+        document.body.appendChild(this.playerDiv);
     }
     getPlayerPos() {
         return {
-            x: window.innerWidth / 2,
-            y: window.innerHeight
+            x: window.innerWidth / 2 - 50,
+            y: window.innerHeight - 100,
+            angle: 0
         };
     }
     radToDeg(angle) {
@@ -38,27 +39,27 @@ export class bubbleShooter {
         return angle * (Math.PI / 180);
     }
     onMouseMove(e) {
-        let pos = this.getMousePos(this.canvas, e);
-        let mouseangle = this.radToDeg(Math.atan2(this.player.y - pos.y, this.player.x - pos.x));
-        if (mouseangle < 0) {
-            mouseangle = 180 + (180 + mouseangle);
-        }
-        var lbound = 8;
-        var ubound = 172;
-        if (mouseangle > 90 && mouseangle < 270) {
-            if (mouseangle > ubound) {
-                mouseangle = ubound;
+        if (this.gameState == 'playing') {
+            this.playerDiv.style.transform = `rotate(${this.degToRad(this.player.angle)}rad)`;
+            let pos = this.getMousePos(this.canvas, e);
+            let mouseangle = this.radToDeg(Math.atan2(this.player.y - pos.y, this.player.x - pos.x));
+            if (mouseangle < 0) {
+                mouseangle = 180 + (180 + mouseangle);
             }
-        }
-        else {
-            if (mouseangle < lbound || mouseangle >= 270) {
-                mouseangle = lbound;
+            var lbound = 8;
+            var ubound = 172;
+            if (mouseangle > 90 && mouseangle < 270) {
+                if (mouseangle > ubound) {
+                    mouseangle = ubound;
+                }
             }
+            else {
+                if (mouseangle < lbound || mouseangle >= 270) {
+                    mouseangle = lbound;
+                }
+            }
+            this.player.angle = mouseangle;
         }
-        this.player.angle = mouseangle;
-        console.log(this.x);
-        console.log(this.speed);
-        console.log(this.player);
     }
     getMousePos(canvas, e) {
         let rect = canvas.getBoundingClientRect();
@@ -68,13 +69,14 @@ export class bubbleShooter {
         };
     }
     onMouseClick(e) {
-        this.speed = 1;
+        this.speed = 10;
+        this.gameState = 'shoot';
     }
     update() {
-        this.x = this.speed * Math.cos(this.degToRad(this.player.angle));
-        this.y = this.speed * -1 * Math.sin(this.degToRad(this.player.angle));
-        this.tile.style.left = `${this.x}px`;
-        this.tile.style.top = `${this.y}px`;
+        this.player.x += this.speed * -1 * Math.cos(this.degToRad(this.player.angle));
+        this.player.y += this.speed * -1 * Math.sin(this.degToRad(this.player.angle));
+        this.playerDiv.style.left = `${this.player.x}px`;
+        this.playerDiv.style.top = `${this.player.y}px`;
     }
 }
 //# sourceMappingURL=bubbleShooter.js.map
