@@ -2,6 +2,8 @@ export class bubbleShooter {
     constructor() {
         this.speed = 0;
         this.gameState = 'init';
+        this.letters = ['a', 'k', 'm'];
+        this.h = 0;
         console.log('Created bubble shooter');
         document.addEventListener('mousemove', (e) => this.onMouseMove(e));
         document.addEventListener('mousedown', (e) => this.onMouseMove(e));
@@ -15,17 +17,36 @@ export class bubbleShooter {
         this.canvas.style.position = 'fixed';
         document.body.appendChild(this.canvas);
         this.createTile();
+        for (const letter of this.letters) {
+            this.createTarget(letter);
+        }
+    }
+    createTarget(letter) {
+        console.log('Created Target');
+        this.targetDiv = document.createElement('target');
+        this.targetDiv.style.backgroundColor = 'red';
+        this.targetDiv.style.position = 'fixed';
+        this.targetDiv.style.height = '100px';
+        this.targetDiv.style.width = '100px';
+        this.targetDiv.style.left = `${(Math.random() * window.innerWidth)}px`;
+        this.targetDiv.style.top = `${(Math.random() * (window.innerWidth / 3))}px`;
+        this.targetDiv.innerText = `${letter}`;
+        this.targetDiv.style.color = 'white';
+        this.targetDiv.setAttribute('id', `${letter}`);
+        document.body.appendChild(this.targetDiv);
     }
     createTile() {
         this.player = this.getPlayerPos();
-        this.playerDiv = document.createElement('div');
+        let target = this.letters[Math.floor(Math.random() * this.letters.length)];
+        this.playerDiv = document.createElement('player');
         this.playerDiv.style.backgroundColor = 'red';
         this.playerDiv.style.position = 'fixed';
         this.playerDiv.style.height = '100px';
         this.playerDiv.style.width = '100px';
         this.playerDiv.style.left = `${this.player.x}px`;
         this.playerDiv.style.top = `${this.player.y}px`;
-        this.playerDiv.innerText = '<<<<<<<<<';
+        this.playerDiv.innerText = target;
+        this.playerDiv.setAttribute('id', `${target}`);
         this.playerDiv.style.color = 'white';
         document.body.appendChild(this.playerDiv);
         this.gameState = 'aiming';
@@ -110,6 +131,7 @@ export class bubbleShooter {
         this.gameState = 'shoot';
     }
     update() {
+        let movingTargets = document.getElementsByTagName('target');
         if (this.gameState == 'aiming') {
             this.playerDiv.style.transform = `rotate(${this.degToRad(this.player.angle)}rad)`;
         }
@@ -122,6 +144,12 @@ export class bubbleShooter {
             this.createTile();
             this.speed = 0;
         }
+    }
+    checkCollision(a, b) {
+        return (a.left <= b.right &&
+            b.left <= a.right &&
+            a.top <= b.bottom &&
+            b.top <= a.bottom);
     }
 }
 //# sourceMappingURL=bubbleShooter.js.map

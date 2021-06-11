@@ -1,5 +1,5 @@
+import { bubbleShooter } from "./classes/BubbleShooter/bubbleShooter.js";
 import { menuWorldWater } from "./classes/GameObj/menuWorldWater.js";
-import { bubbleShooter } from "./classes/GameObj/bubbleShooter.js";
 class Game {
     constructor() {
         console.log('Created game');
@@ -12,6 +12,7 @@ class Game {
             return;
         }
         else if (e.target.id == 'water') {
+            document.body.removeEventListener('click', () => this.clickHandler(e));
             document.body.innerHTML = "";
             this.menuWorldWater = new menuWorldWater();
         }

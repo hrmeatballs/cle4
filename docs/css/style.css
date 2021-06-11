@@ -1,6 +1,12 @@
 body {
     color:gray;
     margin: 0;
+    font-family: KumbhSans;
+}
+
+@font-face {
+    font-family: KumbhSans;
+    src: url('../font/KumbhSans-Regular.ttf');
 }
 
 .grid-container {
@@ -47,4 +53,23 @@ body {
     background-repeat: no-repeat;
     background-position:center;
     background-image: url(../img/island.png);
+}
+
+.bubble-game-object {
+    color: black;
+    font-size: 5vw;
+    text-align: center;
+    background-image: url(../img/bubble.png);
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position:center;
+    position: fixed;
+    height: 13vh;
+    width: 13vh;
+}
+
+canvas {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
 }
