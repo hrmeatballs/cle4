@@ -56,8 +56,13 @@ body {
 }
 
 .bubble-game-object {
-    color: white;
-    background-color: red;
+    color: black;
+    font-size: 5vw;
+    text-align: center;
+    background-image: url(../img/bubble.png);
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-position:center;
     position: fixed;
     height: 13vh;
     width: 13vh;

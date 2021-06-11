@@ -1,29 +1,18 @@
-export class Player {
+import { GameObject } from "./gameObject.js";
+export class Player extends GameObject {
     constructor(target) {
+        super('player');
         this.angle = 90;
-        this.x = 0;
-        this.y = 0;
         this.speed = 0;
         console.log('Created player');
         this.create(target);
     }
     create(target) {
-        if (this.div !== undefined) {
-            this.div.remove();
-        }
-        this.x = window.innerWidth / 2 - 50;
-        this.y = window.innerHeight - 100;
-        this.div = document.createElement('player');
-        this.div.classList.add('bubble-game-object');
-        this.div.style.left = `${this.x}px`;
-        this.div.style.top = `${this.y}px`;
-        this.div.innerText = target;
-        this.div.setAttribute('id', `${target}`);
-        document.body.appendChild(this.div);
+        this.target = target;
+        super.createPlayer(target);
     }
     shoot() {
         this.speed = 10;
-        console.log('SHOOT!!');
     }
     setSpeed(speed) {
         this.speed = speed;
@@ -33,6 +22,9 @@ export class Player {
     }
     getY() {
         return this.y;
+    }
+    getTarget() {
+        return this.target;
     }
     setAngle(angle) {
         this.angle = angle;

@@ -1,41 +1,25 @@
 import { GameObject } from "./gameObject.js";
 
-export class Player {
+export class Player extends GameObject {
 
     private angle : number = 90
-    private x : number = 0
-    private y : number = 0
-    private div : HTMLElement
     private speed : number = 0
+    private target : string
 
     constructor(target : string) {
+        super('player')
+
         console.log('Created player')
         this.create(target)
     }
 
-    public create(target : string) : void {
-        //delete old player if there is one
-        if (this.div !== undefined) {
-            this.div.remove()
-        }
-
-        //setting position of player to bottom center
-        this.x = window.innerWidth/2 - 50
-        this.y = window.innerHeight - 100
-
-        this.div = document.createElement('player')
-        this.div.classList.add('bubble-game-object')
-
-        this.div.style.left = `${this.x}px`
-        this.div.style.top = `${this.y}px`
-        this.div.innerText = target
-        this.div.setAttribute('id', `${target}`)
-        document.body.appendChild(this.div)
+    public create(target : string) {
+        this.target = target
+        super.createPlayer(target)
     }
 
     public shoot() {
         this.speed = 10
-        console.log('SHOOT!!')
     }
 
     public setSpeed(speed : number) {
@@ -48,6 +32,10 @@ export class Player {
 
     public getY() : number {
         return this.y
+    }
+
+    public getTarget() {
+        return this.target
     }
 
     public setAngle(angle : number) : void {

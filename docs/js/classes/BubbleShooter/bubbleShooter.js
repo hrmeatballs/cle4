@@ -1,16 +1,20 @@
 import { Player } from "./player.js";
+import { Target } from "./target.js";
 export class bubbleShooter {
     constructor() {
+        this.targets = [];
         this.gameState = 'init';
-        this.letters = ['a', 'k', 'm'];
+        this.letters = ['k', 'a', 'm'];
         this.h = 0;
         console.log('Created bubble shooter');
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
         this.player = new Player(this.targetRandomiser());
         this.gameState = 'aiming';
+        this.createTargets();
         document.addEventListener('mousemove', (e) => this.onUserMove(e));
-        document.addEventListener('click', () => {
+        document.addEventListener('mousedown', (e) => this.onUserMove(e));
+        document.addEventListener('mouseup', () => {
             this.gameState = 'shooting';
             this.player.shoot();
         });
@@ -22,7 +26,12 @@ export class bubbleShooter {
         });
     }
     targetRandomiser() {
-        return this.letters[Math.floor(Math.random() * this.letters.length)];
+        return this.letters[0];
+    }
+    createTargets() {
+        for (let i = 0; i < this.letters.length; i++) {
+            this.targets.push(new Target(this.letters[i]));
+        }
     }
     onUserMove(e) {
         if (this.gameState == 'aiming') {
@@ -48,13 +57,13 @@ export class bubbleShooter {
     }
     getUserPos(canvas, e) {
         let rect = canvas.getBoundingClientRect();
-        if (e.type == 'mousemove') {
+        if (e.type == 'mousemove' || e.type == 'mousedown') {
             return {
                 x: Math.round((e.clientX - rect.left) / (rect.right - rect.left) * canvas.clientWidth),
                 y: Math.round((e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.clientHeight)
             };
         }
-        else if (e.type == 'touchmove') {
+        else if (e.type == 'touchmove' || e.type == 'touchstart') {
             return {
                 x: Math.round((e.touches[0].clientX - rect.left) / (rect.right - rect.left) * canvas.clientWidth),
                 y: Math.round((e.touches[0].clientY - rect.top) / (rect.bottom - rect.top) * canvas.clientHeight)
@@ -68,6 +77,24 @@ export class bubbleShooter {
         }
     }
     update() {
+        for (const target of this.targets) {
+            if (this.checkCollision(this.player.getRectangle(), target.getRectangle())) {
+                if (this.player.getTarget() == target.getLetter()) {
+                    target.hitTarget();
+                    const index = this.letters.indexOf(target.getLetter());
+                    if (index > -1) {
+                        this.letters.splice(index, 1);
+                    }
+                    if (this.letters.length == 0) {
+                        this.letters = ['m', 'a', 'k'];
+                        this.createTargets();
+                    }
+                    this.player.create(this.targetRandomiser());
+                    this.player.setSpeed(0);
+                    this.gameState = 'aiming';
+                }
+            }
+        }
         this.player.update(this.gameState);
         if (this.player.getX() < -100 || this.player.getX() > window.innerWidth || this.player.getY() < -100 || this.player.getY() > window.innerHeight) {
             this.player.create(this.targetRandomiser());

@@ -1,60 +1,56 @@
 export class GameObject {
+
     protected div : HTMLElement
-    protected x : number
-    protected y : number
-    protected color : string
+    protected x : number = 0
+    protected y : number = 0
+    private type : string
 
-    constructor() {
+    constructor(type : string) {
+        this.type = type
 
+        if(this.type == 'target') {
+            this.x = Math.random() * window.innerWidth
+            this.y = Math.random() * (window.innerWidth/3)
+        }
     }
 
-    protected getRectangle() {
+    public getRectangle() {
         return this.div.getBoundingClientRect()
     }
 
-    protected create(object : string, x : number, y : number, angle : number = 0, letter : Array<string> = []) {
-        this.x = x
-        this.y = y
-
-        this.div = document.createElement(`${object}`)
-        this.div.classList.add('bubble-game-object')
-
-        if (object == 'target') {
-            this.div.innerText = `${letter}`
-            this.div.setAttribute('id', `${letter}`)
-        } else if (object == 'player') {
-            
+    protected createPlayer(target : string) {
+        //delete old player if there is one
+        if (this.div !== undefined) {
+            this.div.remove()
         }
 
+        console.log(target)
+
+        this.x = window.innerWidth/2 - 50
+        this.y = window.innerHeight - 100
+
+        this.div = document.createElement('player')
+        this.div.classList.add('bubble-game-object')
+
+        this.div.style.left = `${this.x}px`
+        this.div.style.top = `${this.y}px`
+        this.div.innerText = target
+        this.div.setAttribute('id', `${target}`)
         document.body.appendChild(this.div)
     }
 
-    // private createTarget(letter : string) {
-    //     console.log('Created Target')
+    protected createTarget(letter : string) {
+        this.div = document.createElement('target')
+        this.div.classList.add('bubble-game-object')
 
-    //     TARGET
+        this.div.style.left = `${this.x}px`
+        this.div.style.top = `${this.y}px`
+        this.div.innerText = `${letter}`
+        document.body.appendChild(this.div)
+    }
 
-    //     this.targetDiv = document.createElement('target')
-    //     this.targetDiv.style.left = `${(Math.random() * window.innerWidth)}px`
-    //     this.targetDiv.style.top = `${(Math.random() * (window.innerWidth/3))}px`
-    //     this.targetDiv.innerText = `${letter}`
-    //     document.body.appendChild(this.targetDiv)
-    // }
+    public hitTarget() {
+        this.div.remove()
+    }
 
-    // private createTile() {
-    //     //resetting position
-    //     this.player = this.getPlayerPos()
-
-    //     let target = this.letters[Math.floor(Math.random() * this.letters.length)]
-
-    //     PLAYER
-
-    //     this.playerDiv.style.left = `${this.player.x}px`
-    //     this.playerDiv.style.top = `${this.player.y}px`
-    //     this.playerDiv.innerText = target
-    //     this.playerDiv.setAttribute('id', `${target}`)
-    //     document.body.appendChild(this.playerDiv)
-
-    //     this.gameState = 'aiming'
-    // }
 }
