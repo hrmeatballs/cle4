@@ -15,6 +15,9 @@ export class bubbleShooter {
     constructor() {
         console.log('Created bubble shooter')
 
+        var audio = new Audio('audio/theme.mp3');
+        audio.play();
+
         //creating canvas to get user position
         this.canvas = document.createElement('canvas')
         document.body.appendChild(this.canvas)
@@ -124,6 +127,8 @@ export class bubbleShooter {
 
                     //removing the hitted target
                     target.hitTarget()
+                    var klank = new Audio(`audio/${target.getLetter()}.mp3`);
+                    klank.play();
 
                     //removing the the letter of the hitted target from letters[]
                     const index = this.letters.indexOf(target.getLetter());

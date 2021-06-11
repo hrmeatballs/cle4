@@ -10,6 +10,9 @@ export class GameObject {
 
         if(this.type == 'target') {
             this.x = Math.random() * window.innerWidth
+            if (this.x > window.innerWidth - 100) {
+                this.x =+ 100
+            }
             this.y = Math.random() * (window.innerWidth/3)
         }
     }
@@ -23,8 +26,6 @@ export class GameObject {
         if (this.div !== undefined) {
             this.div.remove()
         }
-
-        console.log(target)
 
         this.x = window.innerWidth/2 - 50
         this.y = window.innerHeight - 100
