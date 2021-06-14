@@ -7,6 +7,8 @@ export class bubbleShooter {
         this.letters = ['k', 'a', 'm'];
         this.h = 0;
         console.log('Created bubble shooter');
+        var audio = new Audio('audio/theme.mp3');
+        audio.play();
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
         this.player = new Player(this.targetRandomiser());
@@ -81,6 +83,8 @@ export class bubbleShooter {
             if (this.checkCollision(this.player.getRectangle(), target.getRectangle())) {
                 if (this.player.getTarget() == target.getLetter()) {
                     target.hitTarget();
+                    var klank = new Audio(`audio/${target.getLetter()}.mp3`);
+                    klank.play();
                     const index = this.letters.indexOf(target.getLetter());
                     if (index > -1) {
                         this.letters.splice(index, 1);

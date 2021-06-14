@@ -19,7 +19,7 @@ export class Player extends GameObject {
     }
 
     public shoot() {
-        this.speed = 10
+        this.speed = 12
     }
 
     public setSpeed(speed : number) {
