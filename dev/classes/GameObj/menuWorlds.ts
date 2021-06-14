@@ -15,21 +15,30 @@ export class menuWorlds {
         }
     ]
 
+    private data : any
+
     private grid : HTMLElement
 
     public gridRemover() {
         this.grid.remove()
     }
 
-    constructor() {
+    constructor(data : any) {
+
+        this.data = data
+        console.log(this.data)
+
         document.body.style.backgroundImage = "url('img/stars.png')"
 
         this.createGrid();
 
         this.createItem()
 
+        //this.data = this.ajaxCall()
+        //console.log(this.data)
+
         for (let i = 0; i < 3; i++) {
-                this.createWorld(this.worlds[i].name, this.worlds[i].locked)
+                this.createWorld(this.data[i].name, this.data[i].locked)
         }
 
         this.createItem()
@@ -50,7 +59,7 @@ export class menuWorlds {
         }
     }
     
-    private createWorld(world_name : string, locked : boolean) {
+    private createWorld(world_name : string, locked : number) {
         let item = document.createElement('div')
         item.style.backgroundImage = `url(img/world_${world_name}.png)`
         item.classList.add('grid-item')
@@ -64,11 +73,13 @@ export class menuWorlds {
         lock.src = './img/lock.png'
         lock.alt = 'lock'
 
-        if(!locked) {
+        if(locked == 0) {
+            //set worlds to UNLOCKED
             lock.classList.add('invisible')
             lock.setAttribute('id', `${world_name}`)
             item.setAttribute('id', `${world_name}`)
         } else {
+            //set worlds to LOCKED
             item.classList.add('locked')
             lock.setAttribute('id', 'locked')
             item.setAttribute('id', 'locked')
@@ -81,4 +92,8 @@ export class menuWorlds {
         console.log(`Created ${world_name} world`)
     }
 
+}
+
+function data(data: any): ((value: Response) => Response | PromiseLike<Response>) | null | undefined {
+    throw new Error("Function not implemented.");
 }

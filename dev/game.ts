@@ -9,17 +9,26 @@ class Game {
     private menuWorldWater : menuWorldWater
     private bubbleShooter : bubbleShooter
 
+    private data : any
+    private url : string = 'http://localhost/api-main/api/public/v1/worlds/?list'
+
     constructor() {
         console.log('Created game');
 
-        this.bubbleShooter = new bubbleShooter()
+        //this.bubbleShooter = new bubbleShooter()
 
-        //this.menuWorlds = new menuWorlds()
+        this.loadMenuWorlds()
+        
         //this.menuWorldWater = new menuWorldWater()
 
         document.body.addEventListener('click', (e : any) => this.clickHandler(e))
 
         this.gameLoop()
+    }
+
+    private async loadMenuWorlds() {
+        this.data = await this.getJson(this.url)
+        this.menuWorlds = new menuWorlds(this.data)
     }
     
     private clickHandler(e: any) {
@@ -34,8 +43,24 @@ class Game {
 
     }
 
+    private async getJson(url : string) {
+        let response = await fetch(url);
+        let data = await response.json()
+        return data;
+    }
+    
+    // async function main() {
+    //     //OPTION 1
+    //     getJson(apiUrl)
+    //         .then(data => console.log(data));
+    
+    //     //OPTION 2
+    //     jsondata = await getJson(apiUrl)
+    //     console.log(jsondata);
+    // }
+
     private gameLoop() {
-        this.bubbleShooter.update()
+        //this.bubbleShooter.update()
         
         requestAnimationFrame(() => this.gameLoop())
     }

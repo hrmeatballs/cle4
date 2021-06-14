@@ -1,5 +1,5 @@
 export class menuWorlds {
-    constructor() {
+    constructor(data) {
         this.worlds = [
             {
                 name: "water",
@@ -14,11 +14,13 @@ export class menuWorlds {
                 locked: true
             }
         ];
+        this.data = data;
+        console.log(this.data);
         document.body.style.backgroundImage = "url('img/stars.png')";
         this.createGrid();
         this.createItem();
         for (let i = 0; i < 3; i++) {
-            this.createWorld(this.worlds[i].name, this.worlds[i].locked);
+            this.createWorld(this.data[i].name, this.data[i].locked);
         }
         this.createItem();
     }
@@ -45,7 +47,7 @@ export class menuWorlds {
         lock.classList.add('locked-img');
         lock.src = './img/lock.png';
         lock.alt = 'lock';
-        if (!locked) {
+        if (locked == 0) {
             lock.classList.add('invisible');
             lock.setAttribute('id', `${world_name}`);
             item.setAttribute('id', `${world_name}`);
@@ -59,5 +61,8 @@ export class menuWorlds {
         this.grid.appendChild(item);
         console.log(`Created ${world_name} world`);
     }
+}
+function data(data) {
+    throw new Error("Function not implemented.");
 }
 //# sourceMappingURL=menuWorlds.js.map
