@@ -52,7 +52,6 @@ export class levelNavigationsMenu {
         for(let btn of this.buttons)
         {
             navigation_wrapper.append(btn)
-            console.log(btn)
         }
         this.navigation.append(navigation_wrapper)
 

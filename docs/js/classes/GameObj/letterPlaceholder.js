@@ -2,12 +2,10 @@ export class letterPlaceholder {
     constructor(letters) {
         this.letters = letters;
         this.init();
-        console.log(letters);
     }
     init() {
         this.placeholder = document.createElement('div');
         this.placeholder.classList.add('letters-placeholder');
-        console.log(this.placeholder);
         this.createLetters(this.letters);
     }
     createLetters(letters) {

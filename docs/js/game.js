@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { menuWorlds } from "./classes/GameObj/menuWorlds.js";
 import { menuWorldWater } from "./classes/GameObj/menuWorldWater.js";
+import { popUpMenu } from "./classes/GameObj/popUpMenu.js";
 class Game {
     constructor() {
         console.log('Created game');
@@ -30,7 +31,7 @@ class Game {
     }
     clickHandler(e) {
         if (e.target.id == 'locked') {
-            return;
+            this.popUpMenu = new popUpMenu();
         }
         else if (e.target.id == 'Europe') {
             document.body.removeEventListener('click', () => this.clickHandler(e));

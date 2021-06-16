@@ -1,6 +1,8 @@
 import { bubbleShooter } from "./classes/BubbleShooter/bubbleShooter.js"
 import { menuWorlds } from "./classes/GameObj/menuWorlds.js"
 import { menuWorldWater } from "./classes/GameObj/menuWorldWater.js"
+import { popUpMenu } from "./classes/GameObj/popUpMenu.js"
+
 
 
 class Game {
@@ -8,18 +10,18 @@ class Game {
     private menuWorlds : menuWorlds
     private menuWorldWater : menuWorldWater
     private bubbleShooter : bubbleShooter
+    private popUpMenu : popUpMenu
 
     constructor() {
         console.log('Created game');
 
-        //this.bubbleShooter = new bubbleShooter()
-
+    
         this.loadMenuWorlds("https://api.nigelritfeld.nl/v1/worlds/?list")
         
         //this.menuWorldWater = new menuWorldWater()
 
         document.body.addEventListener('click', (e : any) => this.clickHandler(e))
-
+        
         this.gameLoop()
     }
 
@@ -36,7 +38,7 @@ class Game {
     private clickHandler(e: any) {
 
         if (e.target.id == 'locked') {
-            return
+            this.popUpMenu = new popUpMenu()
         } else if (e.target.id == 'Europe'){
             document.body.removeEventListener('click', () => this.clickHandler(e))
             document.body.innerHTML = ""

@@ -17,9 +17,10 @@ export class popUpMenu {
         this.innerWrapper.classList.add('pu-inner-wrapper');
         this.popUp.classList.add('pop-up-container');
         this.popUp.addEventListener('click', this.clickHandler);
-        this.letterPlaceholder = new letterPlaceholder(['A', 'M', 'K']);
+        this.letterPlaceholder = new letterPlaceholder(['K', 'A', 'M', 'E', 'R']);
         this.background.append(this.popUp);
         this.body.append(this.background);
+        console.log(this.background);
     }
     createMessage(message) {
         let element = document.createElement('p');
@@ -29,16 +30,22 @@ export class popUpMenu {
         return element;
     }
     clickHandler(e) {
+        this.background = document.querySelector('menu');
         let target = e.target;
         if (target.dataset.btn === 'homeBtn') {
-            console.log('back');
+            console.log(this.background);
+            this.background.remove();
         }
         if (target.dataset.btn === 'replayBtn') {
             console.log('replay');
+            console.log(this.background);
         }
         if (target.dataset.btn === 'nextBtn') {
             console.log('next');
+            console.log(this.background);
         }
+    }
+    getHomeMenu() {
     }
 }
 //# sourceMappingURL=popUpMenu.js.map
