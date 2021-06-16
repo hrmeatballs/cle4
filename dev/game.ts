@@ -9,16 +9,12 @@ class Game {
     private menuWorldWater : menuWorldWater
     private bubbleShooter : bubbleShooter
 
-    private data : any
-    private url : string = 'https://api.nigelritfeld.nl/v1/worlds/?list'
-
-
     constructor() {
         console.log('Created game');
 
         //this.bubbleShooter = new bubbleShooter()
 
-        this.loadMenuWorlds()
+        this.loadMenuWorlds("https://api.nigelritfeld.nl/v1/worlds/?list")
         
         //this.menuWorldWater = new menuWorldWater()
 
@@ -27,19 +23,24 @@ class Game {
         this.gameLoop()
     }
 
-    private async loadMenuWorlds() {
-        this.data = await this.getJson(this.url)
-        this.menuWorlds = new menuWorlds(this.data)
+    private async loadWorldWater(url : string) {
+        let data = await this.getJson(url)
+        this.menuWorldWater = new menuWorldWater(data)
+    }
+
+    private async loadMenuWorlds(url : string) {
+        let data = await this.getJson(url)
+        this.menuWorlds = new menuWorlds(data)
     }
     
     private clickHandler(e: any) {
 
         if (e.target.id == 'locked') {
             return
-        } else if (e.target.id == 'Atlantis'){
+        } else if (e.target.id == 'Europe'){
             document.body.removeEventListener('click', () => this.clickHandler(e))
             document.body.innerHTML = ""
-            this.menuWorldWater = new menuWorldWater()
+            this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/")
         }
 
     }
