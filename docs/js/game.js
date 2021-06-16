@@ -11,26 +11,31 @@ import { menuWorlds } from "./classes/GameObj/menuWorlds.js";
 import { menuWorldWater } from "./classes/GameObj/menuWorldWater.js";
 class Game {
     constructor() {
-        this.url = 'https://api.nigelritfeld.nl/v1/worlds/?list';
         console.log('Created game');
-        this.loadMenuWorlds();
+        this.loadMenuWorlds("https://api.nigelritfeld.nl/v1/worlds/?list");
         document.body.addEventListener('click', (e) => this.clickHandler(e));
         this.gameLoop();
     }
-    loadMenuWorlds() {
+    loadWorldWater(url) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.data = yield this.getJson(this.url);
-            this.menuWorlds = new menuWorlds(this.data);
+            let data = yield this.getJson(url);
+            this.menuWorldWater = new menuWorldWater(data);
+        });
+    }
+    loadMenuWorlds(url) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let data = yield this.getJson(url);
+            this.menuWorlds = new menuWorlds(data);
         });
     }
     clickHandler(e) {
         if (e.target.id == 'locked') {
             return;
         }
-        else if (e.target.id == 'Atlantis') {
+        else if (e.target.id == 'Europe') {
             document.body.removeEventListener('click', () => this.clickHandler(e));
             document.body.innerHTML = "";
-            this.menuWorldWater = new menuWorldWater();
+            this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/");
         }
     }
     getJson(url) {
