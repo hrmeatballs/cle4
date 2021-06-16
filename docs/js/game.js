@@ -11,7 +11,7 @@ import { menuWorlds } from "./classes/GameObj/menuWorlds.js";
 import { menuWorldWater } from "./classes/GameObj/menuWorldWater.js";
 class Game {
     constructor() {
-        this.url = 'http://localhost/api-main/api/public/v1/worlds/?list';
+        this.url = 'https://api.nigelritfeld.nl/v1/worlds/?list';
         console.log('Created game');
         this.loadMenuWorlds();
         document.body.addEventListener('click', (e) => this.clickHandler(e));
@@ -27,7 +27,7 @@ class Game {
         if (e.target.id == 'locked') {
             return;
         }
-        else if (e.target.id == 'water') {
+        else if (e.target.id == 'Atlantis') {
             document.body.removeEventListener('click', () => this.clickHandler(e));
             document.body.innerHTML = "";
             this.menuWorldWater = new menuWorldWater();

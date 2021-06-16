@@ -10,7 +10,8 @@ class Game {
     private bubbleShooter : bubbleShooter
 
     private data : any
-    private url : string = 'http://localhost/api-main/api/public/v1/worlds/?list'
+    private url : string = 'https://api.nigelritfeld.nl/v1/worlds/?list'
+
 
     constructor() {
         console.log('Created game');
@@ -35,7 +36,7 @@ class Game {
 
         if (e.target.id == 'locked') {
             return
-        } else if (e.target.id == 'water'){
+        } else if (e.target.id == 'Atlantis'){
             document.body.removeEventListener('click', () => this.clickHandler(e))
             document.body.innerHTML = ""
             this.menuWorldWater = new menuWorldWater()
