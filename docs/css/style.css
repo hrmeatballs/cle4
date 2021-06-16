@@ -1,5 +1,8 @@
 body {
     color:gray;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     margin: 0;
     font-family: KumbhSans;
 }
@@ -25,16 +28,18 @@ body {
 }
 
 .locked {
-    filter:grayscale(100);
+    filter:grayscale(1);
 }
 
 .locked-img {
     margin-top: 20vh;
     width: 40%!important;
+    filter:grayscale(0);
+    z-index: 1;
 }
 
 .invisible {
-    filter: opacity(0);
+    filter: opacity(0)!important;
 }
 
 .fade-to-worldmenu {
@@ -48,11 +53,13 @@ body {
     z-index: 2;
 }
 
-.island {
+island {
     background-size:contain;
     background-repeat: no-repeat;
     background-position:center;
     background-image: url(../img/island.png);
+    width: 100%;
+    height: 100%;
 }
 
 .bubble-game-object {
