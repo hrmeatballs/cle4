@@ -27,6 +27,7 @@ class Game {
         return __awaiter(this, void 0, void 0, function* () {
             let data = yield this.getJson(url);
             this.menuWorlds = new menuWorlds(data);
+            document.body.append(this.menuWorlds.getElement());
         });
     }
     clickHandler(e) {

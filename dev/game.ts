@@ -27,11 +27,14 @@ class Game {
     private async loadWorldWater(url : string) {
         let data = await this.getJson(url)
         this.menuWorldWater = new menuWorldWater(data)
+
     }
 
     private async loadMenuWorlds(url : string) {
         let data = await this.getJson(url)
         this.menuWorlds = new menuWorlds(data)
+        document.body.append(this.menuWorlds.getElement())
+
     }
     
     private clickHandler(e: any) {
