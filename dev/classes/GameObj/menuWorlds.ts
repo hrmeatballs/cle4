@@ -16,7 +16,7 @@ export class menuWorlds {
     ]
 
     private data : any
-
+    private container: HTMLElement
     private grid : HTMLElement
 
     public gridRemover() {
@@ -27,12 +27,11 @@ export class menuWorlds {
 
         this.data = data
         console.log(this.data)
-
-        document.body.style.backgroundImage = "url('img/stars.png')"
-
+        this.container = document.createElement('background')
+        this.container.classList.add('worlds-menu')
         this.createGrid();
-
         this.createItem()
+        this.container.append(this.grid)
 
         //this.data = this.ajaxCall()
         //console.log(this.data)
@@ -48,6 +47,7 @@ export class menuWorlds {
     private createGrid() {
         this.grid = document.createElement('grid')
         this.grid.classList.add('grid-container')
+        this.grid.classList.add('menu-worlds')
         document.body.appendChild(this.grid)
     }
 
@@ -90,6 +90,10 @@ export class menuWorlds {
         this.grid.appendChild(item)
         
         console.log(`Created ${world_name} world`)
+    }
+    getElement()
+    {
+        return this.container
     }
 
 }
