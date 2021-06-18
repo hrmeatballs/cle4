@@ -150,7 +150,14 @@ export class bubbleShooter {
                     this.player.setSpeed(0)
                     this.gameState = 'aiming'
 
+                }else{
+                    //resetting player
+                    this.player.create(this.targetRandomiser())
+                    this.player.setSpeed(0)
+                    this.gameState = 'aiming'
                 }
+
+                
             }
         }
 
@@ -171,6 +178,11 @@ export class bubbleShooter {
             b.left <= a.right &&
             a.top <= b.bottom &&
             b.top <= a.bottom)
+    }
+
+    public gameLoop() {
+        this.update()
+        requestAnimationFrame(() => this.gameLoop())
     }
 
 }

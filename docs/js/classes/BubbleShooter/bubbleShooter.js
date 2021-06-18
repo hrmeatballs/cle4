@@ -97,6 +97,11 @@ export class bubbleShooter {
                     this.player.setSpeed(0);
                     this.gameState = 'aiming';
                 }
+                else {
+                    this.player.create(this.targetRandomiser());
+                    this.player.setSpeed(0);
+                    this.gameState = 'aiming';
+                }
             }
         }
         this.player.update(this.gameState);
@@ -111,6 +116,10 @@ export class bubbleShooter {
             b.left <= a.right &&
             a.top <= b.bottom &&
             b.top <= a.bottom);
+    }
+    gameLoop() {
+        this.update();
+        requestAnimationFrame(() => this.gameLoop());
     }
 }
 //# sourceMappingURL=bubbleShooter.js.map
