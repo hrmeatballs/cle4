@@ -104,6 +104,13 @@ menu
 {
     color: #fff;
 }
+.score-wrapper
+{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
 @media only screen and (min-width: 1200px) {
     .pop-up-navigation-container {
         width: 100%;
