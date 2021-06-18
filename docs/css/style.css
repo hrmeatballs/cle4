@@ -88,3 +88,8 @@ canvas {
     width: 100vw;
     position: fixed;
 }
+.guideline{
+    width: 25px;
+    height: 45px;
+    background-color: red;
+}
