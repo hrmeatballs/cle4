@@ -1,5 +1,6 @@
 import { levelNavigationsMenu } from "./levelNavigationMenu.js";
 import { letterPlaceholder } from "./letterPlaceholder.js";
+import { bubbleShooter } from "../BubbleShooter/bubbleShooter.js";
 export class popUpMenu {
     constructor() {
         this.init();
@@ -17,7 +18,7 @@ export class popUpMenu {
         this.innerWrapper.classList.add('pu-inner-wrapper');
         this.popUp.classList.add('pop-up-container');
         this.popUp.addEventListener('click', this.clickHandler);
-        this.letterPlaceholder = new letterPlaceholder(['K', 'A', 'M', 'E', 'R']);
+        this.letterPlaceholder = new letterPlaceholder(['H', 'A', 'L', 'L', 'O']);
         this.background.append(this.popUp);
         this.body.append(this.background);
         console.log(this.background);
@@ -38,14 +39,23 @@ export class popUpMenu {
         }
         if (target.dataset.btn === 'replayBtn') {
             console.log('replay');
-            console.log(this.background);
+            this.background.remove();
+            this.bubbleShooter = new bubbleShooter();
         }
         if (target.dataset.btn === 'nextBtn') {
             console.log('next');
             console.log(this.background);
         }
     }
-    getHomeMenu() {
+    createScore(score) {
+        this.stars = document.createElement('div');
+        this.stars.classList.add('score-wrapper');
+        for (let i = 0; 1 < score; i++) {
+            let element = document.createElement('img');
+            element.src = '../img/level-score-star.svg';
+            this.stars.append(element);
+        }
+        this.innerWrapper.append(this.stars);
     }
 }
 //# sourceMappingURL=popUpMenu.js.map

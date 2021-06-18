@@ -1,5 +1,7 @@
 import { levelNavigationsMenu } from "./levelNavigationMenu.js";
 import { letterPlaceholder } from "./letterPlaceholder.js";
+import { bubbleShooter } from "../BubbleShooter/bubbleShooter.js";
+
 export class popUpMenu
 {
     private body: any;
@@ -11,9 +13,8 @@ export class popUpMenu
     private message: any;
     private letterPlaceholder: letterPlaceholder;
     private levelNavigationMenu: levelNavigationsMenu;
+    private bubbleShooter: bubbleShooter
     
-
-
 
     constructor()
     {
@@ -21,8 +22,10 @@ export class popUpMenu
         this.levelNavigationMenu = new levelNavigationsMenu()
         this.innerWrapper.append(this.letterPlaceholder.getElement())
         this.innerWrapper.append(this.createMessage('Goed gedaan Pik!'))
+        // this.createScore(3)
         this.popUp.append(this.levelNavigationMenu.getElement())
-        this.popUp.append(this.innerWrapper)   
+        this.popUp.append(this.innerWrapper)  
+         
     }
     init()
     {
@@ -33,7 +36,7 @@ export class popUpMenu
         this.innerWrapper.classList.add('pu-inner-wrapper')
         this.popUp.classList.add('pop-up-container')
         this.popUp.addEventListener('click', this.clickHandler)
-        this.letterPlaceholder = new letterPlaceholder(['K', 'A', 'M', 'E','R'])
+        this.letterPlaceholder = new letterPlaceholder(['H', 'A', 'L', 'L','O'])
         this.background.append(this.popUp)
         this.body.append(this.background)
         console.log(this.background)
@@ -54,12 +57,12 @@ export class popUpMenu
         {
             console.log(this.background)
             this.background.remove()
-            
         }
         if(target.dataset.btn === 'replayBtn')
         {
             console.log('replay')
-            console.log(this.background)
+            this.background.remove()
+            this.bubbleShooter = new bubbleShooter()
         }
         if(target.dataset.btn === 'nextBtn')
         {
@@ -67,8 +70,16 @@ export class popUpMenu
             console.log(this.background)
         }
     }
-    getHomeMenu()
+    createScore(score:number)
     {
-        
+        this.stars = document.createElement('div')
+        this.stars.classList.add('score-wrapper')
+        for(let i = 0; 1< score; i++)
+        {
+            let element = document.createElement('img')
+            element.src = '../img/level-score-star.svg'
+            this.stars.append(element)
+        }
+        this.innerWrapper.append(this.stars)
     }
 }
