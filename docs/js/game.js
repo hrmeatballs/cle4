@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { bubbleShooter } from "./classes/BubbleShooter/bubbleShooter.js";
 import { menuWorlds } from "./classes/GameObj/menuWorlds.js";
 import { menuWorldWater } from "./classes/GameObj/menuWorldWater.js";
 import { popUpMenu } from "./classes/GameObj/popUpMenu.js";
@@ -15,7 +16,6 @@ class Game {
         console.log('Created game');
         this.loadMenuWorlds("https://api.nigelritfeld.nl/v1/worlds/?list");
         document.body.addEventListener('click', (e) => this.clickHandler(e));
-        this.gameLoop();
     }
     loadWorldWater(url) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -34,9 +34,10 @@ class Game {
             this.popUpMenu = new popUpMenu();
         }
         else if (e.target.id == 'Europe') {
+            this.bubbleShooter = new bubbleShooter();
+            this.bubbleShooter.gameLoop();
             document.body.removeEventListener('click', () => this.clickHandler(e));
-            document.body.innerHTML = "";
-            this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/");
+            this.menuWorlds.gridRemover();
         }
     }
     getJson(url) {
@@ -45,9 +46,6 @@ class Game {
             let data = yield response.json();
             return data;
         });
-    }
-    gameLoop() {
-        requestAnimationFrame(() => this.gameLoop());
     }
 }
 new Game();

@@ -13,8 +13,8 @@ class Game {
     private popUpMenu : popUpMenu
 
     constructor() {
-        console.log('Created game');
 
+        console.log('Created game');
     
         this.loadMenuWorlds("https://api.nigelritfeld.nl/v1/worlds/?list")
         
@@ -22,7 +22,6 @@ class Game {
 
         document.body.addEventListener('click', (e : any) => this.clickHandler(e))
         
-        this.gameLoop()
     }
 
     private async loadWorldWater(url : string) {
@@ -40,9 +39,13 @@ class Game {
         if (e.target.id == 'locked') {
             this.popUpMenu = new popUpMenu()
         } else if (e.target.id == 'Europe'){
+            this.bubbleShooter = new bubbleShooter()
+            this.bubbleShooter.gameLoop()
             document.body.removeEventListener('click', () => this.clickHandler(e))
-            document.body.innerHTML = ""
-            this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/")
+            this.menuWorlds.gridRemover()
+            // document.body.innerHTML = ""
+            // this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/")
+            
         }
 
     }
@@ -53,24 +56,7 @@ class Game {
         return data;
     }
     
-    // async function main() {
-    //     //OPTION 1
-    //     getJson(apiUrl)
-    //         .then(data => console.log(data));
-    
-    //     //OPTION 2
-    //     jsondata = await getJson(apiUrl)
-    //     console.log(jsondata);
-    // }
-
-    private gameLoop() {
-        //this.bubbleShooter.update()
-        
-        requestAnimationFrame(() => this.gameLoop())
-    }
-
 
 }
 
-//bubble shooter: https://github.com/davemollen/bubble-shooter-game
 new Game()
