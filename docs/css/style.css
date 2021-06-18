@@ -27,12 +27,22 @@ h1 {
     height: 100vh;
 }
 
+.menu-worlds{
+    background-image: url(../img/stars.png);
+}
+
 .grid-item {
     background-size:contain;
     background-repeat: no-repeat;
     background-position:center;
     text-align: center;
     margin: 10px;
+}
+.worlds-menu
+{
+    background-image: url('../img/stars.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .locked {
