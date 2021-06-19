@@ -1,22 +1,31 @@
 import { Player } from "./player.js"
 import { Target } from "./target.js"
+import { Guideline } from "./Guideline.js"
 
 export class bubbleShooter {
 
     private player : Player
     private targets : Target[] = []
+    private guideline: Guideline;
+    private userAngle: number;
+    private level: string;
+    private canvas : any;
+    private gameState : string = 'init';
+    private shots: number;
+    private hitTarget: number;
+    
 
-    private canvas : any
-    private gameState : string = 'init'
-
-    private letters : Array<string> = ['k', 'a', 'm']
+    private letters : Array<string>
     private h : number = 0
 
-    constructor() {
+    constructor(letters: Array<string> = [], level:string) {
         console.log('Created bubble shooter')
 
+        // Getting values 
+        this.letters = letters;
+        this.level = level
         var audio = new Audio('audio/theme.mp3');
-        audio.play();
+        // audio.play();
 
         //creating canvas to get user position
         this.canvas = document.createElement('canvas')
@@ -25,7 +34,8 @@ export class bubbleShooter {
         //creating player
         this.player = new Player(this.targetRandomiser())
         this.gameState = 'aiming'
-
+        // Creating guideline
+        this.guideline = new Guideline()
         this.createTargets()
 
         //add event listener on mouse
@@ -90,6 +100,7 @@ export class bubbleShooter {
 
             //adding mouse angle to player angle
             this.player.setAngle(mouseAngle) 
+            this.userAngle = mouseAngle
         }
     }
 
@@ -143,19 +154,25 @@ export class bubbleShooter {
                         this.createTargets()
                     }
 
-                    
-
                     //resetting player
                     this.player.create(this.targetRandomiser())
                     this.player.setSpeed(0)
                     this.gameState = 'aiming'
 
+                }else{
+                    //resetting player
+                    this.player.create(this.targetRandomiser())
+                    this.player.setSpeed(0)
+                    this.gameState = 'aiming'
                 }
+
+                
             }
         }
 
         //updating player
         this.player.update(this.gameState)
+        this.guideline.update(this.gameState, this.userAngle)
 
         //reset player if out of screen
         if (this.player.getX() < -100|| this.player.getX() > window.innerWidth || this.player.getY() < -100 || this.player.getY() > window.innerHeight) {
@@ -171,6 +188,11 @@ export class bubbleShooter {
             b.left <= a.right &&
             a.top <= b.bottom &&
             b.top <= a.bottom)
+    }
+
+    public gameLoop() {
+        this.update()
+        requestAnimationFrame(() => this.gameLoop())
     }
 
 }

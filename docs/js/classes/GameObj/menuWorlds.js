@@ -1,5 +1,5 @@
 export class menuWorlds {
-    constructor() {
+    constructor(data) {
         this.worlds = [
             {
                 name: "water",
@@ -14,11 +14,15 @@ export class menuWorlds {
                 locked: true
             }
         ];
-        document.body.style.backgroundImage = "url('img/stars.png')";
+        this.data = data;
+        console.log(this.data);
+        this.container = document.createElement('background');
+        this.container.classList.add('worlds-menu');
         this.createGrid();
         this.createItem();
+        this.container.append(this.grid);
         for (let i = 0; i < 3; i++) {
-            this.createWorld(this.worlds[i].name, this.worlds[i].locked);
+            this.createWorld(this.data[i].name, this.data[i].locked);
         }
         this.createItem();
     }
@@ -28,6 +32,7 @@ export class menuWorlds {
     createGrid() {
         this.grid = document.createElement('grid');
         this.grid.classList.add('grid-container');
+        this.grid.classList.add('menu-worlds');
         document.body.appendChild(this.grid);
     }
     createItem() {
@@ -45,7 +50,7 @@ export class menuWorlds {
         lock.classList.add('locked-img');
         lock.src = './img/lock.png';
         lock.alt = 'lock';
-        if (!locked) {
+        if (locked == 0) {
             lock.classList.add('invisible');
             lock.setAttribute('id', `${world_name}`);
             item.setAttribute('id', `${world_name}`);
@@ -59,5 +64,11 @@ export class menuWorlds {
         this.grid.appendChild(item);
         console.log(`Created ${world_name} world`);
     }
+    getElement() {
+        return this.container;
+    }
+}
+function data(data) {
+    throw new Error("Function not implemented.");
 }
 //# sourceMappingURL=menuWorlds.js.map

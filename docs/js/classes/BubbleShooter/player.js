@@ -29,16 +29,7 @@ export class Player extends GameObject {
     setAngle(angle) {
         this.angle = angle;
     }
-    radToDeg(angle) {
-        return angle * (180 / Math.PI);
-    }
-    degToRad(angle) {
-        return angle * (Math.PI / 180);
-    }
     update(gameState) {
-        if (gameState == 'aiming') {
-            this.div.style.transform = `rotate(${this.degToRad(this.angle)}rad)`;
-        }
         this.x += this.speed * -1 * Math.cos(this.degToRad(this.angle));
         this.y += this.speed * -1 * Math.sin(this.degToRad(this.angle));
         this.div.style.left = `${this.x}px`;

@@ -1,0 +1,130 @@
+
+menu
+{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: #131313ad;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    z-index: 100;
+}
+.pop-up-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    width: 50vw;
+    position: absolute;
+    z-index: 99;
+    background-color: #34c2bd;
+    left: 25%;
+    top: 15%;
+    border-radius: 20px;
+}
+.pop-up-navigation-container
+{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    bottom: 0;
+    position: absolute;
+    margin-bottom: -40px;
+}
+.pop-up-navigation-container a{
+    width: 15px;
+    padding: 15px;
+    border-radius: 20px;
+    margin: 10px;
+    background-color:#fff ;
+    /* background-image: url(../icons/icons-ui/115-left-arrow.svg); */
+    background-repeat: no-repeat;
+}
+.pu-inner-wrapper
+{
+    width: 100%;
+    margin: 0px 5%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.pu-nav-btn-wrapper
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: unset;
+    height: 100%;
+}
+.nav-icon{
+    width: 15%;
+}
+.btn
+{
+    background-color: #fff;
+    width: 25%;
+    height: 100%;
+    border-radius:50% ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.letters-placeholder{
+    width: 100%;
+    height: 30%;
+    background-color: #25928e;
+    margin: 0px 21px;
+    border-radius: 25px;
+    
+}
+.letters-wrapper
+{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.letters-wrapper h1
+{
+    color: #fff;
+    font-weight: 800;
+    font-size: 4.5rem;
+}
+.completed-level-message
+{
+    color: #fff;
+}
+.score-wrapper
+{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+@media only screen and (min-width: 1200px) {
+    .pop-up-navigation-container {
+        width: 100%;
+        height: 15%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        bottom: 0;
+        position: absolute;
+        margin-bottom: 40px;
+    }
+    .pop-up-container
+    {
+        position: unset;
+        width: 33vw;
+    }
+}

@@ -42,22 +42,7 @@ export class Player extends GameObject {
         this.angle = angle
     }
 
-    //calculate radius to degrees
-    public radToDeg(angle : number) : number {
-        return angle * (180 / Math.PI)
-    }
-
-    //calculate degrees to radius
-    public degToRad(angle : number) : number {
-        return angle * (Math.PI / 180);
-    }
-
     public update(gameState : string) : void {
-
-        if (gameState == 'aiming') {
-            //rotating the tile facing to the mouse
-            this.div.style.transform = `rotate(${this.degToRad(this.angle)}rad)`
-        }
 
         //calculating the movement of the tile
         this.x += this.speed * -1*Math.cos(this.degToRad(this.angle))
