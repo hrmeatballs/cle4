@@ -1,18 +1,20 @@
 import { Player } from "./player.js";
 import { Target } from "./target.js";
+import { Guideline } from "./Guideline.js";
 export class bubbleShooter {
-    constructor() {
+    constructor(letters = [], level) {
         this.targets = [];
         this.gameState = 'init';
-        this.letters = ['k', 'a', 'm'];
         this.h = 0;
         console.log('Created bubble shooter');
+        this.letters = letters;
+        this.level = level;
         var audio = new Audio('audio/theme.mp3');
-        audio.play();
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
         this.player = new Player(this.targetRandomiser());
         this.gameState = 'aiming';
+        this.guideline = new Guideline();
         this.createTargets();
         document.addEventListener('mousemove', (e) => this.onUserMove(e));
         document.addEventListener('mousedown', (e) => this.onUserMove(e));
@@ -55,6 +57,7 @@ export class bubbleShooter {
                 }
             }
             this.player.setAngle(mouseAngle);
+            this.userAngle = mouseAngle;
         }
     }
     getUserPos(canvas, e) {
@@ -105,6 +108,7 @@ export class bubbleShooter {
             }
         }
         this.player.update(this.gameState);
+        this.guideline.update(this.gameState, this.userAngle);
         if (this.player.getX() < -100 || this.player.getX() > window.innerWidth || this.player.getY() < -100 || this.player.getY() > window.innerHeight) {
             this.player.create(this.targetRandomiser());
             this.player.setSpeed(0);
