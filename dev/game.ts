@@ -42,7 +42,7 @@ class Game {
         if (e.target.id == 'locked') {
             this.popUpMenu = new popUpMenu()
         } else if (e.target.id == 'Europe'){
-            this.bubbleShooter = new bubbleShooter()
+            this.bubbleShooter = new bubbleShooter(['K', 'U', 'T'] , 'Kut level')
             this.bubbleShooter.gameLoop()
             document.body.removeEventListener('click', () => this.clickHandler(e))
             this.menuWorlds.gridRemover()
