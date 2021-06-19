@@ -14,6 +14,15 @@ export class GameObject {
     getRectangle() {
         return this.div.getBoundingClientRect();
     }
+    getX() {
+        return this.x;
+    }
+    getY() {
+        return this.y;
+    }
+    getWidth() {
+        return this.div.clientWidth;
+    }
     createPlayer(target) {
         if (this.div !== undefined) {
             this.div.remove();

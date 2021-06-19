@@ -12,16 +12,10 @@ export class Player extends GameObject {
         super.createPlayer(target);
     }
     shoot() {
-        this.speed = 12;
+        this.speed = 20;
     }
     setSpeed(speed) {
         this.speed = speed;
-    }
-    getX() {
-        return this.x;
-    }
-    getY() {
-        return this.y;
     }
     getTarget() {
         return this.target;

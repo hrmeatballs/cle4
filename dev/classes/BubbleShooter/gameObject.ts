@@ -22,6 +22,18 @@ export class GameObject {
         return this.div.getBoundingClientRect()
     }
 
+    public getX() : number {
+        return this.x
+    }
+
+    public getY() : number {
+        return this.y
+    }
+
+    public getWidth() : number {
+        return this.div.clientWidth
+    }
+
     protected createPlayer(target : string) {
         //delete old player if there is one
         if (this.div !== undefined) {

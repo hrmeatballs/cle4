@@ -5,7 +5,6 @@ export class bubbleShooter {
     constructor(letters = [], level) {
         this.targets = [];
         this.gameState = 'init';
-        this.h = 0;
         console.log('Created bubble shooter');
         this.letters = letters;
         this.level = level;
@@ -40,7 +39,7 @@ export class bubbleShooter {
     onUserMove(e) {
         if (this.gameState == 'aiming') {
             let userPos = this.getUserPos(this.canvas, e);
-            let mouseAngle = this.player.radToDeg(Math.atan2(this.player.getY() - userPos.y + 50, this.player.getX() - userPos.x + 50));
+            let mouseAngle = this.player.radToDeg(Math.atan2(this.player.getY() - userPos.y + this.player.getWidth(), this.player.getX() - userPos.x + this.player.getWidth()));
             if (mouseAngle < 0) {
                 mouseAngle = 180 + (180 + mouseAngle);
             }
@@ -83,7 +82,10 @@ export class bubbleShooter {
     }
     update() {
         for (const target of this.targets) {
-            if (this.checkCollision(this.player.getRectangle(), target.getRectangle())) {
+            let dx = this.player.getX() - target.getX();
+            let dy = this.player.getY() - target.getY();
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < this.player.getWidth()) {
                 if (this.player.getTarget() == target.getLetter()) {
                     target.hitTarget();
                     var klank = new Audio(`audio/${target.getLetter()}.mp3`);
@@ -114,12 +116,6 @@ export class bubbleShooter {
             this.player.setSpeed(0);
             this.gameState = 'aiming';
         }
-    }
-    checkCollision(a, b) {
-        return (a.left <= b.right &&
-            b.left <= a.right &&
-            a.top <= b.bottom &&
-            b.top <= a.bottom);
     }
     gameLoop() {
         this.update();

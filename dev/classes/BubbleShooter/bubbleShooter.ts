@@ -4,9 +4,12 @@ import { Guideline } from "./Guideline.js"
 
 export class bubbleShooter {
 
+    //classes
     private player : Player
     private targets : Target[] = []
     private guideline: Guideline;
+
+    //game variables
     private userAngle: number;
     private level: string;
     private canvas : any;
@@ -16,7 +19,6 @@ export class bubbleShooter {
     
 
     private letters : Array<string>
-    private h : number = 0
 
     constructor(letters: Array<string> = [], level:string) {
         console.log('Created bubble shooter')
@@ -76,7 +78,7 @@ export class bubbleShooter {
             let userPos = this.getUserPos(this.canvas, e)
 
             //get the angle from a certain point to the mouse in degrees
-            let mouseAngle = this.player.radToDeg(Math.atan2(this.player.getY() - userPos.y + 50, this.player.getX() - userPos.x + 50))
+            let mouseAngle = this.player.radToDeg(Math.atan2(this.player.getY() - userPos.y + this.player.getWidth(), this.player.getX() - userPos.x + this.player.getWidth()))
 
             //making sure you can't shoot down
             if (mouseAngle < 0) {
@@ -130,8 +132,13 @@ export class bubbleShooter {
     public update() : void {
         for (const target of this.targets) {
 
-            //checking if there is a collision between player and any target
-            if(this.checkCollision(this.player.getRectangle(), target.getRectangle())) {
+            //getting circle of player and target
+            let dx = this.player.getX() - target.getX()
+            let dy = this.player.getY() - target.getY()
+            let distance = Math.sqrt(dx * dx + dy * dy)
+
+            //checking if there is a collision
+            if(distance < this.player.getWidth()) {
 
                 //checking if hitted target is the same as the one the player needed to hit
                 if (this.player.getTarget() == target.getLetter()) {
@@ -181,13 +188,6 @@ export class bubbleShooter {
             this.gameState = 'aiming'
         }
 
-    }
-
-    private checkCollision(a: ClientRect, b: ClientRect) : boolean {
-        return (a.left <= b.right &&
-            b.left <= a.right &&
-            a.top <= b.bottom &&
-            b.top <= a.bottom)
     }
 
     public gameLoop() {
