@@ -35,19 +35,15 @@ export class GameObject {
         this.bubblePlaceholder.classList.add('bubble-placeholder')
         
         this.div = document.createElement('player')
-        let arrow = document.createElement('div')
-        let content = document.createTextNode('I')
-        
-        
         this.div.classList.add('bubble-game-object')
 
+        this.bubblePlaceholder.style.left = `${this.x}px`
+        this.bubblePlaceholder.style.top = `${this.y}px`
         this.div.style.left = `${this.x}px`
         this.div.style.top = `${this.y}px`
         this.div.innerText = target
-        arrow.appendChild(content)
-        arrow.classList.add('guideline')
+        
         // this.div.append(arrow)
-        this.bubblePlaceholder.append(arrow)
         this.bubblePlaceholder.append(this.div)
         this.div.setAttribute('id', `${target}`)
         document.body.appendChild(this.bubblePlaceholder)
@@ -71,6 +67,27 @@ export class GameObject {
         console.log(this.bubblePlaceholder)
         console.log('removed')
 
+    }
+
+    protected createGuideline()
+    {
+        this.x = window.innerWidth/2
+        this.y = window.innerHeight - 100
+        this.div = document.createElement('guideline')
+        this.div.classList.add('guideline')
+        this.div.style.left = `${this.x}px`
+        this.div.style.top = `${this.y}px`
+        document.body.appendChild(this.div)
+    }
+
+    //calculate radius to degrees
+    public radToDeg(angle : number) : number {
+        return angle * (180 / Math.PI)
+    }
+
+    //calculate degrees to radius
+    public degToRad(angle : number) : number {
+        return angle * (Math.PI / 180);
     }
 
 }
