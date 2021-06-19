@@ -40,7 +40,7 @@ export class popUpMenu {
         if (target.dataset.btn === 'replayBtn') {
             console.log('replay');
             this.background.remove();
-            this.bubbleShooter = new bubbleShooter();
+            this.bubbleShooter = new bubbleShooter(['H', 'O', 'E', 'R'], 'Vies level');
         }
         if (target.dataset.btn === 'nextBtn') {
             console.log('next');
