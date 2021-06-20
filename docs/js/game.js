@@ -7,10 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { bubbleShooter } from "./classes/BubbleShooter/bubbleShooter.js";
 import { menuWorlds } from "./classes/GameObj/menuWorlds.js";
 import { menuWorldWater } from "./classes/GameObj/menuWorldWater.js";
-import { popUpMenu } from "./classes/GameObj/popUpMenu.js";
 class Game {
     constructor() {
         console.log('Created game');
@@ -32,13 +30,10 @@ class Game {
     }
     clickHandler(e) {
         if (e.target.id == 'locked') {
-            this.popUpMenu = new popUpMenu(['K', 'U', 'T'], 'Kut level');
         }
-        else if (e.target.id == 'Europe') {
-            this.bubbleShooter = new bubbleShooter(['K', 'U', 'T'], 'Kut level');
-            this.bubbleShooter.gameLoop();
-            document.body.removeEventListener('click', () => this.clickHandler(e));
-            this.menuWorlds.gridRemover();
+        else if (e.target.id == 'Amazone') {
+            document.body.removeEventListener('click', (e) => this.clickHandler(e));
+            this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/");
         }
     }
     getJson(url) {

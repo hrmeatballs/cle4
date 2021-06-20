@@ -26,12 +26,18 @@ body {
     height: 100vh;
 }
 
+.grid-container-island {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto;
+    height: 100vh;
+}
+
 .grid-item {
     background-size:contain;
     background-repeat: no-repeat;
     background-position:center;
     text-align: center;
-    margin: 10px;
 }
 
 .locked {

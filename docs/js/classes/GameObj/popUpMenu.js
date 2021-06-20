@@ -1,8 +1,11 @@
 import { levelNavigationsMenu } from "./levelNavigationMenu.js";
 import { letterPlaceholder } from "./letterPlaceholder.js";
-import { bubbleShooter } from "../BubbleShooter/bubbleShooter.js";
 export class popUpMenu {
     constructor(letters, message) {
+        this.stars = 3;
+        this.letters = [];
+        console.log(letters);
+        this.letters = letters;
         this.init(letters);
         this.levelNavigationMenu = new levelNavigationsMenu();
         this.innerWrapper.append(this.letterPlaceholder.getElement());
@@ -22,7 +25,6 @@ export class popUpMenu {
         this.letterPlaceholder = new letterPlaceholder(letters);
         this.background.append(this.popUp);
         this.body.append(this.background);
-        console.log(this.background);
     }
     createMessage(message) {
         let element = document.createElement('p');
@@ -35,17 +37,14 @@ export class popUpMenu {
         this.background = document.querySelector('menu');
         let target = e.target;
         if (target.dataset.btn === 'homeBtn') {
-            console.log(this.background);
             this.background.remove();
         }
         if (target.dataset.btn === 'replayBtn') {
             console.log('replay');
-            this.background.remove();
-            this.bubbleShooter = new bubbleShooter(['H', 'O', 'E', 'R'], 'Vies level');
+            console.log(this.letters);
         }
         if (target.dataset.btn === 'nextBtn') {
             console.log('next');
-            console.log(this.background);
         }
     }
     createScore(score) {

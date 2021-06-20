@@ -1,6 +1,7 @@
 import { Player } from "./player.js"
 import { Target } from "./target.js"
 import { Guideline } from "./guideline.js"
+import { popUpMenu } from "../GameObj/popUpMenu.js"
 
 export class bubbleShooter {
 
@@ -8,24 +9,25 @@ export class bubbleShooter {
     private player : Player
     private targets : Target[] = []
     private guideline: Guideline;
+    private popUpMenu : popUpMenu
 
     //game variables
     private userAngle: number;
-    private level: string;
+    private level: Array<string>
     private gameState : string = 'init';
     private letters : Array<string>
 
     //HTML elements
     private canvas : any;
 
-    constructor(letters: Array<string> = [], level:string) {
+    constructor(letters: string, level:string) {
         console.log('Created bubble shooter')
 
         document.body.innerHTML = '';
 
-        // Getting values 
-        this.letters = letters;
-        this.level = level;
+        // Getting values
+        this.letters = letters.split("")
+        this.level = letters.split("")
 
         // Creating all HTML elements
         this.canvas = document.createElement('canvas')
@@ -42,7 +44,7 @@ export class bubbleShooter {
 
         // Creating music
         var audio = new Audio('audio/theme.mp3');
-        audio.play();
+        // audio.play();
 
         // Creating event listeners
         document.addEventListener('mousemove', (e : MouseEvent) => this.onUserMove(e))
@@ -145,7 +147,7 @@ export class bubbleShooter {
             let distance = Math.sqrt(dx * dx + dy * dy)
 
             //checking if there is a collision
-            if(distance < 100) {
+            if(distance < this.player.getWidth()) {
 
                 //checking if hitted target is the same as the one the player needed to hit
                 if (this.player.getTarget() == target.getLetter()) {
@@ -161,16 +163,12 @@ export class bubbleShooter {
                     klank.play();
 
                     //removing the the letter of the hitted target from letters[]
-                    const index = this.letters.indexOf(target.getLetter());
-                    if (index > -1) {
-                        this.letters.splice(index, 1);
-                    }
+                    this.letters.splice(0, 1);
+
 
                     //if all targets are hitted, create new targets
                     if (this.letters.length == 0) {
-                        this.letters = ['m', 'a', 'k']
-                        //add new letters
-                        this.createTargets()
+                        this.popUpMenu = new popUpMenu(this.level , 'Je eerste level!')
                     }
 
                     //resetting player

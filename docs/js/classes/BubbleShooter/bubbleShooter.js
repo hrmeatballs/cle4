@@ -1,14 +1,15 @@
 import { Player } from "./player.js";
 import { Target } from "./target.js";
 import { Guideline } from "./guideline.js";
+import { popUpMenu } from "../GameObj/popUpMenu.js";
 export class bubbleShooter {
-    constructor(letters = [], level) {
+    constructor(letters, level) {
         this.targets = [];
         this.gameState = 'init';
         console.log('Created bubble shooter');
         document.body.innerHTML = '';
-        this.letters = letters;
-        this.level = level;
+        this.letters = letters.split("");
+        this.level = letters.split("");
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
         document.body.style.backgroundImage = 'url(img/shooter/background.png)';
@@ -17,7 +18,6 @@ export class bubbleShooter {
         this.guideline = new Guideline();
         this.createTargets();
         var audio = new Audio('audio/theme.mp3');
-        audio.play();
         document.addEventListener('mousemove', (e) => this.onUserMove(e));
         document.addEventListener('mousedown', (e) => this.onUserMove(e));
         document.addEventListener('mouseup', () => {
@@ -89,7 +89,7 @@ export class bubbleShooter {
             let dx = this.player.getX() - target.getX();
             let dy = this.player.getY() - target.getY();
             let distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < 100) {
+            if (distance < this.player.getWidth()) {
                 if (this.player.getTarget() == target.getLetter()) {
                     target.hitTarget();
                     if (this.targets.length > -1) {
@@ -97,13 +97,9 @@ export class bubbleShooter {
                     }
                     var klank = new Audio(`audio/${target.getLetter()}.mp3`);
                     klank.play();
-                    const index = this.letters.indexOf(target.getLetter());
-                    if (index > -1) {
-                        this.letters.splice(index, 1);
-                    }
+                    this.letters.splice(0, 1);
                     if (this.letters.length == 0) {
-                        this.letters = ['m', 'a', 'k'];
-                        this.createTargets();
+                        this.popUpMenu = new popUpMenu(this.level, 'Je eerste level!');
                     }
                     this.player.create(this.getTarget());
                     this.player.setSpeed(0);
