@@ -35,7 +35,7 @@ body {
 }
 
 .locked {
-    filter:grayscale(0.85);
+    filter:grayscale(1);
 }
 
 .locked-img {

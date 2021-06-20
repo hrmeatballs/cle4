@@ -34,20 +34,19 @@ class Game {
         let data = await this.getJson(url)
         this.menuWorlds = new menuWorlds(data)
         document.body.append(this.menuWorlds.getElement())
+
     }
     
     private clickHandler(e: any) {
 
         if (e.target.id == 'locked') {
             this.popUpMenu = new popUpMenu(['K', 'U', 'T'] , 'Kut level')
-        } else if (e.target.id == 'Amazone'){
+        } else if (e.target.id == 'Europe'){
             this.bubbleShooter = new bubbleShooter(['K', 'U', 'T'] , 'Kut level')
             this.bubbleShooter.gameLoop()
-            // document.body.removeEventListener('click', () => this.clickHandler(e))
-            // this.menuWorlds.gridRemover()
+            document.body.removeEventListener('click', () => this.clickHandler(e))
+            this.menuWorlds.gridRemover()
             // document.body.innerHTML = ""
-            // this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/")
-
             // this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/")
             
         }
