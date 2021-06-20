@@ -23,6 +23,9 @@ export class Player extends GameObject {
     setAngle(angle) {
         this.angle = angle;
     }
+    getAngle() {
+        return this.angle;
+    }
     update(gameState) {
         this.x += this.speed * -1 * Math.cos(this.degToRad(this.angle));
         this.y += this.speed * -1 * Math.sin(this.degToRad(this.angle));

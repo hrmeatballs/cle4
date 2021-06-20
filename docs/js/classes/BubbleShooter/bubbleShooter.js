@@ -117,7 +117,13 @@ export class bubbleShooter {
         }
         this.player.update(this.gameState);
         this.guideline.update(this.gameState, this.userAngle);
-        if (this.player.getX() < -100 || this.player.getX() > window.innerWidth || this.player.getY() < -100 || this.player.getY() > window.innerHeight) {
+        if (this.player.getX() < 0) {
+            this.player.setAngle(180 - this.player.getAngle());
+        }
+        else if (this.player.getX() > (window.innerWidth - 100)) {
+            this.player.setAngle(180 - this.player.getAngle());
+        }
+        else if (this.player.getY() < 0) {
             this.player.create(this.getTarget());
             this.player.setSpeed(0);
             this.gameState = 'aiming';

@@ -22,16 +22,20 @@ export class Player extends GameObject {
         this.speed = 20
     }
 
-    public setSpeed(speed : number) {
+    public setSpeed(speed : number) : void{
         this.speed = speed
     }
 
-    public getTarget() {
+    public getTarget() : string{
         return this.target
     }
 
     public setAngle(angle : number) : void {
         this.angle = angle
+    }
+
+    public getAngle() : number {
+        return this.angle
     }
 
     public update(gameState : string) : void {

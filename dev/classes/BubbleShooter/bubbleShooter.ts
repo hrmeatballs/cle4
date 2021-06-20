@@ -193,8 +193,15 @@ export class bubbleShooter {
         this.player.update(this.gameState)
         this.guideline.update(this.gameState, this.userAngle)
 
-        //reset player if out of screen
-        if (this.player.getX() < -100|| this.player.getX() > window.innerWidth || this.player.getY() < -100 || this.player.getY() > window.innerHeight) {
+        // Making sure player won't leave screen
+        if (this.player.getX() < 0) {
+            //bounce off left wall
+            this.player.setAngle(180 - this.player.getAngle())
+        } else if (this.player.getX() > (window.innerWidth - 100)) {
+            //bounce off right wall
+            this.player.setAngle(180 - this.player.getAngle())
+        } else if (this.player.getY() < 0) {
+            //reset player if touched the top
             this.player.create(this.getTarget())
             this.player.setSpeed(0)
             this.gameState = 'aiming'
