@@ -42,7 +42,7 @@ export class bubbleShooter {
 
         // Creating music
         var audio = new Audio('audio/theme.mp3');
-        // audio.play();
+        audio.play();
 
         // Creating event listeners
         document.addEventListener('mousemove', (e : MouseEvent) => this.onUserMove(e))

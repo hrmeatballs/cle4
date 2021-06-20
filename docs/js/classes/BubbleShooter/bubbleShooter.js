@@ -17,6 +17,7 @@ export class bubbleShooter {
         this.guideline = new Guideline();
         this.createTargets();
         var audio = new Audio('audio/theme.mp3');
+        audio.play();
         document.addEventListener('mousemove', (e) => this.onUserMove(e));
         document.addEventListener('mousedown', (e) => this.onUserMove(e));
         document.addEventListener('mouseup', () => {
