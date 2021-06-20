@@ -50,8 +50,8 @@ export class GameObject {
         console.log('Removed target');
     }
     createGuideline() {
-        this.x = window.innerWidth / 2;
-        this.y = window.innerHeight - 100;
+        this.x = window.innerWidth / 2 - 75;
+        this.y = window.innerHeight - 60;
         this.div = document.createElement('guideline');
         this.div.classList.add('guideline');
         this.div.style.left = `${this.x}px`;

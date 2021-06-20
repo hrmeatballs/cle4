@@ -9,10 +9,15 @@ export class GameObject {
         this.type = type
 
         if(this.type == 'target') {
+            //generate random x
             this.x = Math.random() * window.innerWidth
+
+            //making sure target isnt out of screen
             if (this.x > window.innerWidth - 100) {
                 this.x =+ 100
             }
+
+            //generate random y
             this.y = Math.random() * (window.innerWidth/3)
         }
     }
@@ -71,8 +76,8 @@ export class GameObject {
 
     protected createGuideline()
     {
-        this.x = window.innerWidth/2
-        this.y = window.innerHeight - 100
+        this.x = window.innerWidth/2 -75
+        this.y = window.innerHeight - 60
         this.div = document.createElement('guideline')
         this.div.classList.add('guideline')
         this.div.style.left = `${this.x}px`

@@ -80,10 +80,8 @@ canvas {
 }
 
 .guideline {
-    width: 15px;
+    width: 20vh;
     height: 15px;
-    margin-top: -30px;
-    margin-left: -10px;
     background-image: url('../icons/icons-ui/078-left-arrow-1.svg');
     background-size: contain;
     background-repeat: no-repeat;
