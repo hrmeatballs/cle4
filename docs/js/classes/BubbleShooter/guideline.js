@@ -10,4 +10,4 @@ export class Guideline extends GameObject {
         }
     }
 }
-//# sourceMappingURL=Guideline.js.map
+//# sourceMappingURL=guideline.js.map

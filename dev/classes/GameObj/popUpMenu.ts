@@ -16,18 +16,18 @@ export class popUpMenu
     private bubbleShooter: bubbleShooter
     
 
-    constructor()
+    constructor(letters : Array<string>, message : string)
     {
-        this.init()
+        this.init(letters)
         this.levelNavigationMenu = new levelNavigationsMenu()
         this.innerWrapper.append(this.letterPlaceholder.getElement())
-        this.innerWrapper.append(this.createMessage('Goed gedaan Pik!'))
+        this.innerWrapper.append(this.createMessage(message))
         // this.createScore(3)
         this.popUp.append(this.levelNavigationMenu.getElement())
         this.popUp.append(this.innerWrapper)  
          
     }
-    init()
+    init(letters : Array<string>)
     {
         this.body = document.getElementsByTagName("BODY")[0]
         this.background = document.createElement('menu')
@@ -36,7 +36,8 @@ export class popUpMenu
         this.innerWrapper.classList.add('pu-inner-wrapper')
         this.popUp.classList.add('pop-up-container')
         this.popUp.addEventListener('click', this.clickHandler)
-        this.letterPlaceholder = new letterPlaceholder(['H', 'A', 'L', 'L','O'])
+        console.log(letters)
+        this.letterPlaceholder = new letterPlaceholder(letters)
         this.background.append(this.popUp)
         this.body.append(this.background)
         console.log(this.background)

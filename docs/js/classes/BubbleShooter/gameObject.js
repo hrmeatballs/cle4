@@ -26,22 +26,16 @@ export class GameObject {
     createPlayer(target) {
         if (this.div !== undefined) {
             this.div.remove();
-            this.bubblePlaceholder.remove();
         }
         this.x = window.innerWidth / 2 - 50;
         this.y = window.innerHeight - 100;
-        this.bubblePlaceholder = document.createElement('div');
-        this.bubblePlaceholder.classList.add('bubble-placeholder');
         this.div = document.createElement('player');
         this.div.classList.add('bubble-game-object');
-        this.bubblePlaceholder.style.left = `${this.x}px`;
-        this.bubblePlaceholder.style.top = `${this.y}px`;
         this.div.style.left = `${this.x}px`;
         this.div.style.top = `${this.y}px`;
         this.div.innerText = target;
-        this.bubblePlaceholder.append(this.div);
         this.div.setAttribute('id', `${target}`);
-        document.body.appendChild(this.bubblePlaceholder);
+        document.body.appendChild(this.div);
     }
     createTarget(letter) {
         this.div = document.createElement('target');
@@ -53,10 +47,7 @@ export class GameObject {
     }
     hitTarget() {
         this.div.remove();
-        console.log(this.div);
-        console.log('removed');
-        console.log(this.bubblePlaceholder);
-        console.log('removed');
+        console.log('Removed target');
     }
     createGuideline() {
         this.x = window.innerWidth / 2;

@@ -32,7 +32,7 @@ class Game {
     }
     clickHandler(e) {
         if (e.target.id == 'locked') {
-            this.popUpMenu = new popUpMenu();
+            this.popUpMenu = new popUpMenu(['K', 'U', 'T'], 'Kut level');
         }
         else if (e.target.id == 'Europe') {
             this.bubbleShooter = new bubbleShooter(['K', 'U', 'T'], 'Kut level');

@@ -2,15 +2,15 @@ import { levelNavigationsMenu } from "./levelNavigationMenu.js";
 import { letterPlaceholder } from "./letterPlaceholder.js";
 import { bubbleShooter } from "../BubbleShooter/bubbleShooter.js";
 export class popUpMenu {
-    constructor() {
-        this.init();
+    constructor(letters, message) {
+        this.init(letters);
         this.levelNavigationMenu = new levelNavigationsMenu();
         this.innerWrapper.append(this.letterPlaceholder.getElement());
-        this.innerWrapper.append(this.createMessage('Goed gedaan Pik!'));
+        this.innerWrapper.append(this.createMessage(message));
         this.popUp.append(this.levelNavigationMenu.getElement());
         this.popUp.append(this.innerWrapper);
     }
-    init() {
+    init(letters) {
         this.body = document.getElementsByTagName("BODY")[0];
         this.background = document.createElement('menu');
         this.popUp = document.createElement('div');
@@ -18,7 +18,8 @@ export class popUpMenu {
         this.innerWrapper.classList.add('pu-inner-wrapper');
         this.popUp.classList.add('pop-up-container');
         this.popUp.addEventListener('click', this.clickHandler);
-        this.letterPlaceholder = new letterPlaceholder(['H', 'A', 'L', 'L', 'O']);
+        console.log(letters);
+        this.letterPlaceholder = new letterPlaceholder(letters);
         this.background.append(this.popUp);
         this.body.append(this.background);
         console.log(this.background);

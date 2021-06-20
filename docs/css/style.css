@@ -5,14 +5,13 @@ html,body
 }
 body {
     color:gray;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:cover;
     margin: 0;
     font-family: KumbhSans;
-}
-h1 {
-
 }
 
 @font-face {
@@ -27,10 +26,6 @@ h1 {
     height: 100vh;
 }
 
-.menu-worlds{
-    background-image: url(../img/stars.png);
-}
-
 .grid-item {
     background-size:contain;
     background-repeat: no-repeat;
@@ -38,19 +33,13 @@ h1 {
     text-align: center;
     margin: 10px;
 }
-.worlds-menu
-{
-    background-image: url('../img/stars.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-}
 
 .locked {
     filter:grayscale(1);
 }
 
 .locked-img {
-    margin-top: 20vh;
+    margin-top: 13vh;
     width: 40%!important;
     filter:grayscale(0);
     z-index: 1;
@@ -58,17 +47,6 @@ h1 {
 
 .invisible {
     filter: opacity(0)!important;
-}
-
-.fade-to-worldmenu {
-    transition: margin-top 2s,background-image 2s;
-    background-image: url(../img/clouds.png);
-    background-size: cover;
-    height: 180vh;
-    width: 100vw;
-    margin-top: 80vh;
-    position: fixed;
-    z-index: 2;
 }
 
 island {
@@ -84,22 +62,24 @@ island {
     color: black;
     font-size: 5vw;
     text-align: center;
-    background-image: url(../img/bubble.png);
+    background-image: url(../img/shooter/ball.png);
     background-size:contain;
     background-repeat: no-repeat;
     background-position:center;
     position: fixed;
     height: 13vh;
     width: 13vh;
+    z-index: 99;
 }
 
 canvas {
     height: 100vh;
     width: 100vw;
     position: fixed;
-    background-color: blanchedalmond;
+    background-color: rgba(0, 0, 0, 0);
 }
-.guideline{
+
+.guideline {
     width: 15px;
     height: 15px;
     margin-top: -30px;
@@ -110,5 +90,5 @@ canvas {
     position: fixed;
     color: #000;
     font-weight: 800;
-    z-index: 999;
+    z-index: 100;
 }

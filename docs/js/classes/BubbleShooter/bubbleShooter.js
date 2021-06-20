@@ -1,20 +1,22 @@
 import { Player } from "./player.js";
 import { Target } from "./target.js";
-import { Guideline } from "./Guideline.js";
+import { Guideline } from "./guideline.js";
 export class bubbleShooter {
     constructor(letters = [], level) {
         this.targets = [];
         this.gameState = 'init';
         console.log('Created bubble shooter');
+        document.body.innerHTML = '';
         this.letters = letters;
         this.level = level;
-        var audio = new Audio('audio/theme.mp3');
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
-        this.player = new Player(this.targetRandomiser());
+        document.body.style.backgroundImage = 'url(img/shooter/background.png)';
+        this.player = new Player(this.getTarget());
         this.gameState = 'aiming';
         this.guideline = new Guideline();
         this.createTargets();
+        var audio = new Audio('audio/theme.mp3');
         document.addEventListener('mousemove', (e) => this.onUserMove(e));
         document.addEventListener('mousedown', (e) => this.onUserMove(e));
         document.addEventListener('mouseup', () => {
@@ -28,7 +30,7 @@ export class bubbleShooter {
             this.player.shoot();
         });
     }
-    targetRandomiser() {
+    getTarget() {
         return this.letters[0];
     }
     createTargets() {
@@ -39,7 +41,7 @@ export class bubbleShooter {
     onUserMove(e) {
         if (this.gameState == 'aiming') {
             let userPos = this.getUserPos(this.canvas, e);
-            let mouseAngle = this.player.radToDeg(Math.atan2(this.player.getY() - userPos.y + this.player.getWidth(), this.player.getX() - userPos.x + this.player.getWidth()));
+            let mouseAngle = this.player.radToDeg(Math.atan2(this.player.getY() - userPos.y + 50, this.player.getX() - userPos.x + 50));
             if (mouseAngle < 0) {
                 mouseAngle = 180 + (180 + mouseAngle);
             }
@@ -74,6 +76,7 @@ export class bubbleShooter {
             };
         }
         else {
+            console.error("Method of movement is undefined");
             return {
                 x: 0,
                 y: 0
@@ -85,9 +88,12 @@ export class bubbleShooter {
             let dx = this.player.getX() - target.getX();
             let dy = this.player.getY() - target.getY();
             let distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < this.player.getWidth()) {
+            if (distance < 100) {
                 if (this.player.getTarget() == target.getLetter()) {
                     target.hitTarget();
+                    if (this.targets.length > -1) {
+                        this.targets.splice(0, 1);
+                    }
                     var klank = new Audio(`audio/${target.getLetter()}.mp3`);
                     klank.play();
                     const index = this.letters.indexOf(target.getLetter());
@@ -98,12 +104,12 @@ export class bubbleShooter {
                         this.letters = ['m', 'a', 'k'];
                         this.createTargets();
                     }
-                    this.player.create(this.targetRandomiser());
+                    this.player.create(this.getTarget());
                     this.player.setSpeed(0);
                     this.gameState = 'aiming';
                 }
                 else {
-                    this.player.create(this.targetRandomiser());
+                    this.player.create(this.getTarget());
                     this.player.setSpeed(0);
                     this.gameState = 'aiming';
                 }
@@ -112,7 +118,7 @@ export class bubbleShooter {
         this.player.update(this.gameState);
         this.guideline.update(this.gameState, this.userAngle);
         if (this.player.getX() < -100 || this.player.getX() > window.innerWidth || this.player.getY() < -100 || this.player.getY() > window.innerHeight) {
-            this.player.create(this.targetRandomiser());
+            this.player.create(this.getTarget());
             this.player.setSpeed(0);
             this.gameState = 'aiming';
         }

@@ -1,21 +1,7 @@
 export class menuWorlds {
     constructor(data) {
-        this.worlds = [
-            {
-                name: "water",
-                locked: false
-            },
-            {
-                name: "ice",
-                locked: true
-            },
-            {
-                name: "desert",
-                locked: true
-            }
-        ];
+        document.body.style.backgroundImage = 'url(img/stars.png)';
         this.data = data;
-        console.log(this.data);
         this.container = document.createElement('background');
         this.container.classList.add('worlds-menu');
         this.createGrid();

@@ -1,6 +1,6 @@
 import { Player } from "./player.js"
 import { Target } from "./target.js"
-import { Guideline } from "./Guideline.js"
+import { Guideline } from "./guideline.js"
 
 export class bubbleShooter {
 
@@ -12,35 +12,39 @@ export class bubbleShooter {
     //game variables
     private userAngle: number;
     private level: string;
-    private canvas : any;
     private gameState : string = 'init';
-    private shots: number;
-    private hitTarget: number;
-    
-
     private letters : Array<string>
+
+    //HTML elements
+    private canvas : any;
 
     constructor(letters: Array<string> = [], level:string) {
         console.log('Created bubble shooter')
 
+        document.body.innerHTML = '';
+
         // Getting values 
         this.letters = letters;
-        this.level = level
+        this.level = level;
+
+        // Creating all HTML elements
+        this.canvas = document.createElement('canvas')
+        document.body.appendChild(this.canvas)
+        document.body.style.backgroundImage = 'url(img/shooter/background.png)';
+
+        this.player = new Player(this.getTarget())
+
+        this.gameState = 'aiming'
+
+        this.guideline = new Guideline()
+
+        this.createTargets()
+
+        // Creating music
         var audio = new Audio('audio/theme.mp3');
         // audio.play();
 
-        //creating canvas to get user position
-        this.canvas = document.createElement('canvas')
-        document.body.appendChild(this.canvas)
-
-        //creating player
-        this.player = new Player(this.targetRandomiser())
-        this.gameState = 'aiming'
-        // Creating guideline
-        this.guideline = new Guideline()
-        this.createTargets()
-
-        //add event listener on mouse
+        // Creating event listeners
         document.addEventListener('mousemove', (e : MouseEvent) => this.onUserMove(e))
         document.addEventListener('mousedown', (e : MouseEvent) => this.onUserMove(e))
         document.addEventListener('mouseup', () => {
@@ -48,7 +52,6 @@ export class bubbleShooter {
             this.player.shoot() 
         })
 
-        // //add event listeners on touch
         document.addEventListener('touchmove', (e : TouchEvent) => this.onUserMove(e))
         document.addEventListener('touchstart', (e : TouchEvent) => this.onUserMove(e))
         document.addEventListener('touchend', () => {
@@ -57,12 +60,12 @@ export class bubbleShooter {
         })
     }
 
-    //get random letter for player
-    private targetRandomiser() : string {
+    //generate a target
+    private getTarget() : string {
         return this.letters[0]
-        //return this.letters[Math.floor(Math.random() * this.letters.length)]
     }
 
+    //create a target for each letter
     private createTargets() {
         //adding targets
         for (let i = 0; i < this.letters.length; i++) {
@@ -70,59 +73,63 @@ export class bubbleShooter {
         }
     }
 
-    //function activated by mousemove eventlistener
+    //calculates angle between player and user, activated by eventListeners
     private onUserMove(e : any) : void {
         if(this.gameState == 'aiming') {
         
-            //get array with x,y (mouse position)
+            //get x,y of user
             let userPos = this.getUserPos(this.canvas, e)
 
-            //get the angle from a certain point to the mouse in degrees
-            let mouseAngle = this.player.radToDeg(Math.atan2(this.player.getY() - userPos.y + this.player.getWidth(), this.player.getX() - userPos.x + this.player.getWidth()))
+            //get the angle from the line between user and player
+            let mouseAngle = this.player.radToDeg(Math.atan2(this.player.getY() - userPos.y + 50, this.player.getX() - userPos.x + 50))
 
             //making sure you can't shoot down
             if (mouseAngle < 0) {
                 mouseAngle = 180 + (180 + mouseAngle);
             }
 
-            //making sure you can only shoot UP
+            //making sure the angle can't be 0 or 180 and only shooting UP
             var lbound = 8;
             var ubound = 172;
             if (mouseAngle > 90 && mouseAngle < 270) {
-                // Left
+                // angle won't be lower than 8
                 if (mouseAngle > ubound) {
                     mouseAngle = ubound;
                 }
             } else {
-                // Right
+                // angle won't be higher than 172
                 if (mouseAngle < lbound || mouseAngle >= 270) {
                     mouseAngle = lbound;
                 }
             }
 
-            //adding mouse angle to player angle
+            //adding mouseAngle to player angle
             this.player.setAngle(mouseAngle) 
             this.userAngle = mouseAngle
         }
     }
 
-    // Get the mouse position
+    // Get the mouse position and return x,y
     private getUserPos(canvas : HTMLElement, e : any) {
         let rect = canvas.getBoundingClientRect();
 
         //checking what kind of movement and return the pos of user
         if (e.type == 'mousemove' || e.type == 'mousedown') {
             return {
+                //return coords if mouse is used
                 x: Math.round((e.clientX - rect.left)/(rect.right - rect.left)*canvas.clientWidth),
                 y: Math.round((e.clientY - rect.top)/(rect.bottom - rect.top)*canvas.clientHeight)
             }
         } else if (e.type == 'touchmove' || e.type == 'touchstart') {
             return {
+                //return coords if touch is used
                 x: Math.round((e.touches[0].clientX - rect.left)/(rect.right - rect.left)*canvas.clientWidth),
                 y: Math.round((e.touches[0].clientY - rect.top)/(rect.bottom - rect.top)*canvas.clientHeight)
             }
         } else {
+            console.error("Method of movement is undefined")
             return {
+                //return 0,0 if can't get method of movement and throw error
                 x: 0,
                 y: 0
             }
@@ -138,13 +145,18 @@ export class bubbleShooter {
             let distance = Math.sqrt(dx * dx + dy * dy)
 
             //checking if there is a collision
-            if(distance < this.player.getWidth()) {
+            if(distance < 100) {
 
                 //checking if hitted target is the same as the one the player needed to hit
                 if (this.player.getTarget() == target.getLetter()) {
 
                     //removing the hitted target
                     target.hitTarget()
+                    if (this.targets.length > -1) {
+                        this.targets.splice(0 , 1);
+                    }
+
+                    //play sound of hitted letter
                     var klank = new Audio(`audio/${target.getLetter()}.mp3`);
                     klank.play();
 
@@ -154,21 +166,21 @@ export class bubbleShooter {
                         this.letters.splice(index, 1);
                     }
 
-                    //if array is empty fill array
+                    //if all targets are hitted, create new targets
                     if (this.letters.length == 0) {
                         this.letters = ['m', 'a', 'k']
-                        //add new word to array
+                        //add new letters
                         this.createTargets()
                     }
 
                     //resetting player
-                    this.player.create(this.targetRandomiser())
+                    this.player.create(this.getTarget())
                     this.player.setSpeed(0)
                     this.gameState = 'aiming'
 
                 }else{
                     //resetting player
-                    this.player.create(this.targetRandomiser())
+                    this.player.create(this.getTarget())
                     this.player.setSpeed(0)
                     this.gameState = 'aiming'
                 }
@@ -183,7 +195,7 @@ export class bubbleShooter {
 
         //reset player if out of screen
         if (this.player.getX() < -100|| this.player.getX() > window.innerWidth || this.player.getY() < -100 || this.player.getY() > window.innerHeight) {
-            this.player.create(this.targetRandomiser())
+            this.player.create(this.getTarget())
             this.player.setSpeed(0)
             this.gameState = 'aiming'
         }
