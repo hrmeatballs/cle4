@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { levelNavigationsMenu } from "./levelNavigationMenu.js";
 import { letterPlaceholder } from "./letterPlaceholder.js";
 import { menuWorldWater } from "./menuWorldWater.js";
 export class popUpMenu {
@@ -14,9 +15,11 @@ export class popUpMenu {
         this.letters = [];
         this.letters = letters;
         this.init(letters);
+        this.levelNavigationMenu = new levelNavigationsMenu();
+        this.createScore(score);
         this.innerWrapper.append(this.letterPlaceholder.getElement());
         this.innerWrapper.append(this.createMessage(message));
-        this.createScore(score);
+        this.popUp.append(this.levelNavigationMenu.getElement());
         this.popUp.append(this.innerWrapper);
     }
     init(letters) {
@@ -58,10 +61,10 @@ export class popUpMenu {
         this.stars.classList.add('score-wrapper');
         this.innerWrapper.append(this.stars);
         for (let i = 0; i < score; i++) {
-            let star = document.createElement('img');
-            star.src = 'img/level-score-star.svg';
-            star.style.height = '10vh';
-            this.stars.appendChild(star);
+            let element = document.createElement('img');
+            element.src = '../docs/img/level-score-star.svg';
+            element.classList.add('star');
+            this.stars.append(element);
         }
     }
 }

@@ -22,12 +22,11 @@ export class popUpMenu
     constructor(letters : Array<string>, message : string, score : number = 0) {
         this.letters = letters
         this.init(letters)
-        // this.levelNavigationMenu = new levelNavigationsMenu()
+        this.levelNavigationMenu = new levelNavigationsMenu()
+        this.createScore(score)
         this.innerWrapper.append(this.letterPlaceholder.getElement())
         this.innerWrapper.append(this.createMessage(message))
-        this.createScore(score)
-        // this.createScore(3)
-        // this.popUp.append(this.levelNavigationMenu.getElement())
+        this.popUp.append(this.levelNavigationMenu.getElement())
         this.popUp.append(this.innerWrapper)     
     }
 
@@ -91,11 +90,12 @@ export class popUpMenu
         this.stars = document.createElement('stars')
         this.stars.classList.add('score-wrapper')
         this.innerWrapper.append(this.stars)
-        for (let i = 0; i < score; i++) {
-            let star = document.createElement('img')
-            star.src = 'img/level-score-star.svg'
-            star.style.height = '10vh';
-            this.stars.appendChild(star)
+        for(let i = 0; i< score; i++)
+        {
+            let element = document.createElement('img')
+            element.src = '../docs/img/level-score-star.svg'
+            element.classList.add('star')
+            this.stars.append(element)
         }
     }
 }

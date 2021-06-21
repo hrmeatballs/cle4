@@ -2,6 +2,7 @@ import { Player } from "./player.js"
 import { Target } from "./target.js"
 import { Guideline } from "./guideline.js"
 import { popUpMenu } from "../GameObj/popUpMenu.js"
+import { scoreMenu } from "./scoreMenu.js"
 
 export class bubbleShooter {
 
@@ -9,7 +10,8 @@ export class bubbleShooter {
     private player : Player
     private targets : Target[] = []
     private guideline: Guideline;
-    private popUpMenu : popUpMenu
+    private popUpMenu : popUpMenu;
+    private scoreMenu : scoreMenu;
 
     //game variables
     private userAngle: number;
@@ -23,7 +25,8 @@ export class bubbleShooter {
 
     constructor(letters: string, level:string) {
         console.log('Created bubble shooter')
-
+        this.scoreMenu = new scoreMenu()
+        this.scoreMenu.updateTime()
         document.body.innerHTML = '';
 
         // Getting values
@@ -33,6 +36,7 @@ export class bubbleShooter {
         // Creating all HTML elements
         this.canvas = document.createElement('canvas')
         document.body.appendChild(this.canvas)
+        document.body.appendChild(this.scoreMenu.getElement())
         document.body.style.backgroundImage = 'url(img/shooter/background.png)';
 
         if (this.gameState != 'gameover') {
@@ -143,6 +147,12 @@ export class bubbleShooter {
     }
 
     public update() : void {
+        if (this.gameState != 'gameover'){
+            this.scoreMenu.updateTime()
+        }else{
+            this.scoreMenu.stopTime()
+        }
+        
         for (const target of this.targets) {
 
             //getting circle of player and target

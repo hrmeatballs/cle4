@@ -2,17 +2,21 @@ import { Player } from "./player.js";
 import { Target } from "./target.js";
 import { Guideline } from "./guideline.js";
 import { popUpMenu } from "../GameObj/popUpMenu.js";
+import { scoreMenu } from "./scoreMenu.js";
 export class bubbleShooter {
     constructor(letters, level) {
         this.targets = [];
         this.gameState = 'init';
         this.shots = 0;
         console.log('Created bubble shooter');
+        this.scoreMenu = new scoreMenu();
+        this.scoreMenu.updateTime();
         document.body.innerHTML = '';
         this.letters = letters.split("");
         this.level = letters.split("");
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
+        document.body.appendChild(this.scoreMenu.getElement());
         document.body.style.backgroundImage = 'url(img/shooter/background.png)';
         if (this.gameState != 'gameover') {
             this.player = new Player(this.getTarget());
@@ -92,6 +96,12 @@ export class bubbleShooter {
         }
     }
     update() {
+        if (this.gameState != 'gameover') {
+            this.scoreMenu.updateTime();
+        }
+        else {
+            this.scoreMenu.stopTime();
+        }
         for (const target of this.targets) {
             let dx = this.player.getX() - target.getX();
             let dy = this.player.getY() - target.getY();

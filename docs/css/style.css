@@ -96,3 +96,25 @@ canvas {
     font-weight: 800;
     z-index: 100;
 }
+score
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    width: 100%;
+    z-index: 999;
+    position: fixed;
+    top: 0;
+}
+score div{
+    width: 25%;
+    color: #fff;
+    font-size: 2rem;
+    padding: 0px 40px;
+    font-weight: 800;
+}
+.star
+{
+    width: 25%;
+}
