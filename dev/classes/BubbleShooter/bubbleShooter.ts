@@ -165,7 +165,7 @@ export class bubbleShooter {
 
                 //checking if hitted target is the same as the one the player needed to hit
                 if (this.player.getTarget() == target.getLetter()) {
-
+                    this.scoreMenu.updateScore()
                     //removing the hitted target
                     target.hitTarget()
                     if (this.targets.length > -1) {
