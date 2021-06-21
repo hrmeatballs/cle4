@@ -35,7 +35,6 @@ export class bubbleShooter {
             if (this.gameState != 'gameover') {
                 this.gameState = 'shooting';
                 this.player.shoot();
-                this.shots += 1;
             }
         });
     }

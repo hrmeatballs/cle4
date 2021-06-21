@@ -17,6 +17,8 @@ class Game {
         this.loadMenuWorlds("https://api.nigelritfeld.nl/v1/worlds/?list");
         document.body.addEventListener('click', (e) => this.clickHandler(e));
         document.body.addEventListener('keydown', (e) => this.keyHandler(e));
+        this.audio.play();
+        this.playingMusic = true;
     }
     loadWorldWater(url) {
         return __awaiter(this, void 0, void 0, function* () {
