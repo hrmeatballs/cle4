@@ -93,7 +93,7 @@ export class popUpMenu
         for(let i = 0; i< score; i++)
         {
             let element = document.createElement('img')
-            element.src = '../docs/img/level-score-star.svg'
+            element.src = './docs/img/level-score-star.svg'
             element.classList.add('star')
             this.stars.append(element)
         }
