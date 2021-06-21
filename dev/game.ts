@@ -36,10 +36,6 @@ class Game {
         let data = await this.getJson(url)
         this.menuWorlds = new menuWorlds(data)
         document.body.append(this.menuWorlds.getElement())
-
-        // Creating music
-        this.audio.play();
-        this.playingMusic = true
     }
 
     private keyHandler(e : any) {
@@ -68,7 +64,9 @@ class Game {
             // this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/")
 
             this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/")
-            
+            // Creating music
+            this.audio.play();
+            this.playingMusic = true
         }
 
     }

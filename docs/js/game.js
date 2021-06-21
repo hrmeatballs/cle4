@@ -29,8 +29,6 @@ class Game {
             let data = yield this.getJson(url);
             this.menuWorlds = new menuWorlds(data);
             document.body.append(this.menuWorlds.getElement());
-            this.audio.play();
-            this.playingMusic = true;
         });
     }
     keyHandler(e) {
@@ -50,6 +48,8 @@ class Game {
         else if (e.target.id == 'Amazone') {
             document.body.removeEventListener('click', (e) => this.clickHandler(e));
             this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/");
+            this.audio.play();
+            this.playingMusic = true;
         }
     }
     getJson(url) {
