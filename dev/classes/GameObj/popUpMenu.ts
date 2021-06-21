@@ -97,5 +97,11 @@ export class popUpMenu
             element.classList.add('star')
             this.stars.append(element)
         }
+        for (let i = 0; i < 3 - score; i++) {
+            let element = document.createElement('img')
+            element.src = '../docs/img/level-score-star.svg'
+            element.classList.add('star', 'locked')
+            this.stars.append(element)
+        }
     }
 }
