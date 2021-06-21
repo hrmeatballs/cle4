@@ -56,12 +56,7 @@ class Game {
         if (e.target.id == 'locked') {
             // this.popUpMenu = new popUpMenu(['k', 'a', 'm'] , 'Je eerste level!')
         } else if (e.target.id == 'Amazone'){
-            // this.bubbleShooter = new bubbleShooter(['K', 'U', 'T'] , 'Kut level')
-            // this.bubbleShooter.gameLoop()
             document.body.removeEventListener('click', (e : any) => this.clickHandler(e))
-            // this.menuWorlds.gridRemover()
-            // document.body.innerHTML = ""
-            // this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/")
 
             this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/")
             // Creating music
