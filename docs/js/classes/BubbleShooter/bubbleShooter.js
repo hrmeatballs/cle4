@@ -108,6 +108,7 @@ export class bubbleShooter {
             let distance = Math.sqrt(dx * dx + dy * dy);
             if (distance < this.player.getWidth()) {
                 if (this.player.getTarget() == target.getLetter()) {
+                    this.scoreMenu.updateScore();
                     target.hitTarget();
                     if (this.targets.length > -1) {
                         this.targets.splice(0, 1);
