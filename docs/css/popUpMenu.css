@@ -65,13 +65,13 @@ menu
     height: 100%;
 }
 .nav-icon{
-    width: 6vw;
+    width: 7vh;
 }
 .btn
 {
     background-color: #fff;
-    width: 10vw;
-    height: 10vw;
+    width: 13vh;
+    height: 13vh;
     border-radius:50% ;
     display: flex;
     justify-content: center;
