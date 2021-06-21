@@ -25,10 +25,6 @@ class Game {
 
         document.body.addEventListener('click', (e : any) => this.clickHandler(e))
         document.body.addEventListener('keydown', (e : any) => this.keyHandler(e))
-        
-        // Creating music
-        this.audio.play();
-        this.playingMusic = true
     }
 
     private async loadWorldWater(url : string) {
@@ -40,6 +36,10 @@ class Game {
         let data = await this.getJson(url)
         this.menuWorlds = new menuWorlds(data)
         document.body.append(this.menuWorlds.getElement())
+
+        // Creating music
+        this.audio.play();
+        this.playingMusic = true
     }
 
     private keyHandler(e : any) {
