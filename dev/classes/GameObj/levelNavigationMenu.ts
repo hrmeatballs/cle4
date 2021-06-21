@@ -25,9 +25,9 @@ export class levelNavigationsMenu {
         let replayIcon = document.createElement('img')
         let nextIcon = document.createElement('img')
 
-        homeIcon.src = '../icons/icons/115-left-arrow.svg'
-        replayIcon.src = '../icons/icons/022-play.svg'
-        nextIcon.src = '../icons/icons/033-fast-forward.svg'
+        homeIcon.src = '../icons/115-left-arrow.svg'
+        replayIcon.src = '../icons/022-play.svg'
+        nextIcon.src = '../icons/033-fast-forward.svg'
 
         homeIcon.classList.add('nav-icon')
         replayIcon.classList.add('nav-icon')
