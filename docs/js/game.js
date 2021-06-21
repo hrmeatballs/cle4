@@ -32,7 +32,6 @@ class Game {
         });
     }
     keyHandler(e) {
-        this.audio.loop = true;
         if (e.key == 'm' && this.playingMusic == false) {
             this.audio.play();
             this.playingMusic = true;
@@ -49,6 +48,7 @@ class Game {
             document.body.removeEventListener('click', (e) => this.clickHandler(e));
             this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/");
             this.audio.play();
+            this.audio.loop = true;
             this.playingMusic = true;
         }
     }

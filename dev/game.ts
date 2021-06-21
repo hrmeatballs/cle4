@@ -39,8 +39,6 @@ class Game {
     }
 
     private keyHandler(e : any) {
-        this.audio.loop = true;
-
         if (e.key == 'm' && this.playingMusic == false) {
             // Creating music
             this.audio.play();
@@ -61,6 +59,7 @@ class Game {
             this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/")
             // Creating music
             this.audio.play();
+            this.audio.loop = true;
             this.playingMusic = true
         }
 
