@@ -65,7 +65,7 @@ island {
 }
 
 .bubble-game-object {
-    color: black;
+    color: white;
     font-size: 5vw;
     text-align: center;
     background-image: url(../img/shooter/ball.png);

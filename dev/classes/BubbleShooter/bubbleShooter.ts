@@ -193,11 +193,11 @@ export class bubbleShooter {
                         let message = messages[Math.floor(Math.random() * messages.length)]
                         let scorePercent = this.level.length/this.shots
                         let score = 0
-                        if (scorePercent == 1) {
+                        if (scorePercent >= 0.6) {
                             score = 3
-                        } else if (scorePercent <= 0.6 && scorePercent >= 0.3) {
+                        } else if (scorePercent < 0.6 && scorePercent >= 0.3) {
                             score = 2
-                        } else {
+                        } else if (scorePercent < 0.3){
                             score = 1
                         }
                         console.log(score)
