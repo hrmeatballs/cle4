@@ -50,6 +50,7 @@ export class GameObject {
         console.log('Removed target');
     }
     createGuideline() {
+        console.log('Created guideline');
         this.x = window.innerWidth / 2 - 75;
         this.y = window.innerHeight - 60;
         this.div = document.createElement('guideline');

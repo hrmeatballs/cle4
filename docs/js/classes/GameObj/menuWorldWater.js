@@ -7,7 +7,6 @@ export class menuWorldWater {
         document.body.style.backgroundImage = "url(img/sea.png)";
         this.createGrid();
         for (const island of data) {
-            console.log(island);
             this.createItem(island.id);
         }
         document.body.addEventListener('click', (e) => this.clickHandler(e));
@@ -22,12 +21,12 @@ export class menuWorldWater {
         let item = document.createElement('island');
         item.classList.add('grid-item');
         item.style.backgroundImage = `url(img/eiland-${id}.png)`;
-        if (id != 3) {
-            item.classList.add('locked');
-            item.setAttribute('id', `locked`);
+        if (id != 1 && id != 5) {
+            item.setAttribute('id', `${id}`);
         }
         else {
-            item.setAttribute('id', `${id}`);
+            item.classList.add('locked');
+            item.setAttribute('id', 'locked');
         }
         this.grid.appendChild(item);
     }

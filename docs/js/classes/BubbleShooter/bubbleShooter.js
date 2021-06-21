@@ -6,6 +6,7 @@ export class bubbleShooter {
     constructor(letters, level) {
         this.targets = [];
         this.gameState = 'init';
+        this.shots = 0;
         console.log('Created bubble shooter');
         document.body.innerHTML = '';
         this.letters = letters.split("");
@@ -13,22 +14,29 @@ export class bubbleShooter {
         this.canvas = document.createElement('canvas');
         document.body.appendChild(this.canvas);
         document.body.style.backgroundImage = 'url(img/shooter/background.png)';
-        this.player = new Player(this.getTarget());
+        if (this.gameState != 'gameover') {
+            this.player = new Player(this.getTarget());
+        }
         this.gameState = 'aiming';
         this.guideline = new Guideline();
         this.createTargets();
-        var audio = new Audio('audio/theme.mp3');
         document.addEventListener('mousemove', (e) => this.onUserMove(e));
         document.addEventListener('mousedown', (e) => this.onUserMove(e));
         document.addEventListener('mouseup', () => {
-            this.gameState = 'shooting';
-            this.player.shoot();
+            if (this.gameState != 'gameover') {
+                this.gameState = 'shooting';
+                this.player.shoot();
+                this.shots += 1;
+            }
         });
         document.addEventListener('touchmove', (e) => this.onUserMove(e));
         document.addEventListener('touchstart', (e) => this.onUserMove(e));
         document.addEventListener('touchend', () => {
-            this.gameState = 'shooting';
-            this.player.shoot();
+            if (this.gameState != 'gameover') {
+                this.gameState = 'shooting';
+                this.player.shoot();
+                this.shots += 1;
+            }
         });
     }
     getTarget() {
@@ -99,16 +107,40 @@ export class bubbleShooter {
                     klank.play();
                     this.letters.splice(0, 1);
                     if (this.letters.length == 0) {
-                        this.popUpMenu = new popUpMenu(this.level, 'Je eerste level!');
+                        this.gameState = 'gameover';
+                        setTimeout(() => {
+                            var klank = new Audio(`audio/${this.level.join('')}.mp3`);
+                            klank.play();
+                        }, 700);
+                        let messages = [':)', 'Goedzo!', 'Topper!', 'Goed bezig :)', 'Goed bezig!', 'Topper :)', 'Ga zo door!', 'Ga zo door :)', ':D'];
+                        let message = messages[Math.floor(Math.random() * messages.length)];
+                        let scorePercent = this.level.length / this.shots;
+                        let score = 0;
+                        if (scorePercent == 1) {
+                            score = 3;
+                        }
+                        else if (scorePercent <= 0.6 && scorePercent >= 0.3) {
+                            score = 2;
+                        }
+                        else {
+                            score = 1;
+                        }
+                        console.log(score);
+                        console.log(scorePercent);
+                        this.popUpMenu = new popUpMenu(this.level, `${message}`, score);
                     }
-                    this.player.create(this.getTarget());
-                    this.player.setSpeed(0);
-                    this.gameState = 'aiming';
+                    if (this.gameState != 'gameover') {
+                        this.player.create(this.getTarget());
+                        this.player.setSpeed(0);
+                        this.gameState = 'aiming';
+                    }
                 }
                 else {
-                    this.player.create(this.getTarget());
-                    this.player.setSpeed(0);
-                    this.gameState = 'aiming';
+                    if (this.gameState != 'gameover') {
+                        this.player.create(this.getTarget());
+                        this.player.setSpeed(0);
+                        this.gameState = 'aiming';
+                    }
                 }
             }
         }
@@ -123,7 +155,9 @@ export class bubbleShooter {
         else if (this.player.getY() < 0) {
             this.player.create(this.getTarget());
             this.player.setSpeed(0);
-            this.gameState = 'aiming';
+            if (this.gameState != 'gameover') {
+                this.gameState = 'aiming';
+            }
         }
     }
     gameLoop() {

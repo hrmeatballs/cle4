@@ -10,6 +10,8 @@ export class menuWorlds {
 
     constructor(data : any) {
 
+        document.body.innerHTML = ""
+
         document.body.style.backgroundImage = 'url(img/stars.png)';
 
         this.data = data

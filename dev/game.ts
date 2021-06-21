@@ -12,6 +12,9 @@ class Game {
     private bubbleShooter : bubbleShooter
     private popUpMenu : popUpMenu
 
+    private playingMusic : boolean = false
+    private audio = new Audio('audio/theme.mp3')
+
     constructor() {
 
         console.log('Created game');
@@ -21,19 +24,32 @@ class Game {
         //this.menuWorldWater = new menuWorldWater()
 
         document.body.addEventListener('click', (e : any) => this.clickHandler(e))
+        document.body.addEventListener('keydown', (e : any) => this.keyHandler(e))
         
     }
 
     private async loadWorldWater(url : string) {
         let data = await this.getJson(url)
         this.menuWorldWater = new menuWorldWater(data)
-
     }
 
     private async loadMenuWorlds(url : string) {
         let data = await this.getJson(url)
         this.menuWorlds = new menuWorlds(data)
         document.body.append(this.menuWorlds.getElement())
+    }
+
+    private keyHandler(e : any) {
+        this.audio.loop = true;
+
+        if (e.key == 'm' && this.playingMusic == false) {
+            // Creating music
+            this.audio.play();
+            this.playingMusic = true
+        } else if (e.key == 'm' && this.playingMusic){
+            this.audio.pause();
+            this.playingMusic = false
+        }
     }
     
     private clickHandler(e: any) {

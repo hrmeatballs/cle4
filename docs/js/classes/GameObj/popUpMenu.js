@@ -1,16 +1,22 @@
-import { levelNavigationsMenu } from "./levelNavigationMenu.js";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 import { letterPlaceholder } from "./letterPlaceholder.js";
+import { menuWorldWater } from "./menuWorldWater.js";
 export class popUpMenu {
-    constructor(letters, message) {
-        this.stars = 3;
+    constructor(letters, message, score = 0) {
         this.letters = [];
-        console.log(letters);
         this.letters = letters;
         this.init(letters);
-        this.levelNavigationMenu = new levelNavigationsMenu();
         this.innerWrapper.append(this.letterPlaceholder.getElement());
         this.innerWrapper.append(this.createMessage(message));
-        this.popUp.append(this.levelNavigationMenu.getElement());
+        this.createScore(score);
         this.popUp.append(this.innerWrapper);
     }
     init(letters) {
@@ -20,8 +26,7 @@ export class popUpMenu {
         this.innerWrapper = document.createElement('div');
         this.innerWrapper.classList.add('pu-inner-wrapper');
         this.popUp.classList.add('pop-up-container');
-        this.popUp.addEventListener('click', this.clickHandler);
-        console.log(letters);
+        this.popUp.addEventListener('click', () => { this.loadWorldWater("https://api.nigelritfeld.nl/v1/levels/"); });
         this.letterPlaceholder = new letterPlaceholder(letters);
         this.background.append(this.popUp);
         this.body.append(this.background);
@@ -34,28 +39,30 @@ export class popUpMenu {
         return element;
     }
     clickHandler(e) {
-        this.background = document.querySelector('menu');
-        let target = e.target;
-        if (target.dataset.btn === 'homeBtn') {
-            this.background.remove();
-        }
-        if (target.dataset.btn === 'replayBtn') {
-            console.log('replay');
-            console.log(this.letters);
-        }
-        if (target.dataset.btn === 'nextBtn') {
-            console.log('next');
-        }
+    }
+    loadWorldWater(url) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let data = yield this.getJson(url);
+            this.menuWorldWater = new menuWorldWater(data);
+        });
+    }
+    getJson(url) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let response = yield fetch(url);
+            let data = yield response.json();
+            return data;
+        });
     }
     createScore(score) {
-        this.stars = document.createElement('div');
+        this.stars = document.createElement('stars');
         this.stars.classList.add('score-wrapper');
-        for (let i = 0; 1 < score; i++) {
-            let element = document.createElement('img');
-            element.src = '../img/level-score-star.svg';
-            this.stars.append(element);
-        }
         this.innerWrapper.append(this.stars);
+        for (let i = 0; i < score; i++) {
+            let star = document.createElement('img');
+            star.src = 'img/level-score-star.svg';
+            star.style.height = '10vh';
+            this.stars.appendChild(star);
+        }
     }
 }
 //# sourceMappingURL=popUpMenu.js.map

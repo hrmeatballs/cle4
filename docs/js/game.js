@@ -11,9 +11,12 @@ import { menuWorlds } from "./classes/GameObj/menuWorlds.js";
 import { menuWorldWater } from "./classes/GameObj/menuWorldWater.js";
 class Game {
     constructor() {
+        this.playingMusic = false;
+        this.audio = new Audio('audio/theme.mp3');
         console.log('Created game');
         this.loadMenuWorlds("https://api.nigelritfeld.nl/v1/worlds/?list");
         document.body.addEventListener('click', (e) => this.clickHandler(e));
+        document.body.addEventListener('keydown', (e) => this.keyHandler(e));
     }
     loadWorldWater(url) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -27,6 +30,17 @@ class Game {
             this.menuWorlds = new menuWorlds(data);
             document.body.append(this.menuWorlds.getElement());
         });
+    }
+    keyHandler(e) {
+        this.audio.loop = true;
+        if (e.key == 'm' && this.playingMusic == false) {
+            this.audio.play();
+            this.playingMusic = true;
+        }
+        else if (e.key == 'm' && this.playingMusic) {
+            this.audio.pause();
+            this.playingMusic = false;
+        }
     }
     clickHandler(e) {
         if (e.target.id == 'locked') {
