@@ -68,7 +68,7 @@ export class popUpMenu {
         }
         for (let i = 0; i < 3 - score; i++) {
             let element = document.createElement('img');
-            element.src = '../img/level-score-star.svg';
+            element.src = '../img/level-score-star-sad.png';
             element.classList.add('star', 'locked');
             this.stars.append(element);
         }
