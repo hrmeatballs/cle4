@@ -135,8 +135,6 @@ export class bubbleShooter {
                         else if (scorePercent < 0.3) {
                             score = 1;
                         }
-                        console.log(score);
-                        console.log(scorePercent);
                         this.popUpMenu = new popUpMenu(this.level, `${message}`, score);
                     }
                     if (this.gameState != 'gameover') {

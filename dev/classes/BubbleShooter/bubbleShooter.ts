@@ -189,8 +189,11 @@ export class bubbleShooter {
                             klank.play()
                         }, 700)
 
+                        //generating random message
                         let messages = [':)', 'Goedzo!', 'Topper!', 'Goed bezig :)', 'Goed bezig!', 'Topper :)', 'Ga zo door!', 'Ga zo door :)', ':D']       
                         let message = messages[Math.floor(Math.random() * messages.length)]
+
+                        //calculating score
                         let scorePercent = this.level.length/this.shots
                         let score = 0
                         if (scorePercent >= 0.6) {
@@ -200,8 +203,8 @@ export class bubbleShooter {
                         } else if (scorePercent < 0.3){
                             score = 1
                         }
-                        console.log(score)
-                        console.log(scorePercent)
+
+                        //send all information to popup screen
                         this.popUpMenu = new popUpMenu(this.level , `${message}`, score)
                     }
 

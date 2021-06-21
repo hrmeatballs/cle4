@@ -21,7 +21,7 @@ export class menuWorldWater {
         let item = document.createElement('island');
         item.classList.add('grid-item');
         item.style.backgroundImage = `url(img/eiland-${id}.png)`;
-        if (id != 1 && id != 5) {
+        if (id != 5) {
             item.setAttribute('id', `${id}`);
         }
         else {
